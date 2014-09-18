@@ -6,9 +6,9 @@ This system would connect to version control (Git) and push changes that analyst
 
 Web-based system for creating prototypes for AngularJS applications.
 
-Team members:
-Mikk-Erik Bachmann
-Getter Krutto
-Jane Jürgenson
-Kristiina Pokk
+Team members:  
+Mikk-Erik Bachmann  
+Getter Krutto  
+Jane Jürgenson  
+Kristiina Pokk  
 
