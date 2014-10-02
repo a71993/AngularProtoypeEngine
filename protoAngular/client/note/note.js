@@ -10,5 +10,5 @@ angular.module('AngularProtoypeEngine.main.note', ['ui.router'])
     });
 })
 .controller('NoteController', function ($scope) {
-  $scope.message = 'Yooo!';
+  $scope.message = 'Application info.';
 });
