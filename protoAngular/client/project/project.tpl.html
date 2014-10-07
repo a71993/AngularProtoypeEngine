@@ -1,0 +1,19 @@
+<br />
+<br />
+<br />
+<div ng-controller="ProjectController">
+  <accordion close-others="oneAtATime" >
+    <accordion-group heading="Project data">
+        <div ng-repeat="item in items">{{item}}</div>
+        <button class="btn btn-default btn-sm" ng-click="addItem()">New data</button>
+    </accordion-group>
+    <accordion-group heading="Components">
+        <div ng-repeat="item in items">{{item}}</div>
+        <button class="btn btn-default btn-sm" ng-click="addItem()">New component</button>
+    </accordion-group>
+    <accordion-group heading="Screens">
+        <div ng-repeat="item in items">{{item}}</div>
+        <button class="btn btn-default btn-sm" ng-click="addItem()">New screen</button>
+    </accordion-group>
+  </accordion>
+</div>
