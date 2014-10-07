@@ -1,24 +1,19 @@
 (function(angular) {
   "use strict";
-<<<<<<< HEAD
-  angular.module('AngularProtoypeEngine.main', ['ui.router', 'AngularProtoypeEngine.main.note','AngularProtoypeEngine.main.jsonData'])
-  .config(function ($stateProvider) {
-    $stateProvider
-      .state('AngularProtoypeEngine.main', {
-        url: '/main',
-        abstract: true,
-        templateUrl: 'main/main.tpl.html'
-      });
-  });
-=======
+
+
+
   angular.module('AngularProtoypeEngine.main', ['ui.router', 
-    'AngularProtoypeEngine.main.note', 'AngularProtoypeEngine.main.projects.project'])
+    'AngularProtoypeEngine.main.note', 'AngularProtoypeEngine.main.projects.project', 'AngularProtoypeEngine.main.uig.templates'])
     .config(function($stateProvider, $urlRouterProvider) {
       $urlRouterProvider
         .when('/AngularProtoypeEngine/main', '/AngularProtoypeEngine/main/notes');
         
       $urlRouterProvider
-        .when('/AngularProtoypeEngine/main/projects', '/AngularProtoypeEngine/main/projects/project');  
+        .when('/AngularProtoypeEngine/main/projects', '/AngularProtoypeEngine/main/projects/project');
+      
+     /* $urlRouterProvider
+        .when('/AngularProtoypeEngine/main/uig', '/AngularProtoypeEngine/main/uig/templates'); */
 
       $stateProvider
         .state('AngularProtoypeEngine.main', {
@@ -34,6 +29,15 @@
           templateUrl: ''
         });
         
+      /*  
+      $stateProvider
+        .state('AngularProtoypeEngine.main.uig', {
+          url: '/uig',
+          abstract: false,
+          templateUrl: ''
+        });*/
+        
+        
     });
->>>>>>> da6189cfea3b7ac16e4dbcdf883f5e2a53c1b9fb
+
 }(angular));

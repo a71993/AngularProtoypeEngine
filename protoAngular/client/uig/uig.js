@@ -1,7 +1,16 @@
-(function() {
-   var app = angular.module('myApp', []);
 
-    app.controller('AccordionsController', '$scope', function ($scope) {
+  angular.module('AngularProtoypeEngine.main.uig.templates', ['ui.bootstrap']);
+
+  angular.module('AngularProtoypeEngine.main.uig.templates', ['ui.router'])
+  .config(function ($stateProvider) {
+    $stateProvider
+      .state('AngularProtoypeEngine.main.uig.templates', {
+        url: '/uig',
+        templateUrl: 'uig/uig.html',
+        controller: 'UigController'
+      });
+  })
+  .controller('UigController', function ($scope) {
       $scope.oneAtATime = true;
 
       $scope.groups = [
@@ -20,11 +29,10 @@
         }
       ];
 
-
-
       $scope.status = {
-        isFirstOpen: true,
-     };
+        isFirstOpen: true
+      };
+      
   });
-});
+
   
