@@ -1,0 +1,29 @@
+{
+	"name": "angularprotoypeengine",
+	"description": "Web-based system for creating prototypes for AngularJS applications.",
+	"version": "0.0.1",
+	"author": "Mikk-Erik Bachmann, Getter Krutto, Jane Jürgenson, Kristiina Pokk",
+  "dependencies": {
+    "express": "*",
+    "mongoose": "*",
+    "q": "*"
+  },
+  "devDependencies": {
+    "gulp": "*",
+    "gulp-bower": "*",
+    "morgan": "*",
+    "body-parser": "*",
+    "tiny-lr": "*",
+    "gulp-jshint": "*",
+    "gulp-notify": "*",
+    "gulp-livereload": "*",
+    "gulp-nodemon": "*",
+    "gulp-plumber": "*",
+    "gulp-task-listing": "*",
+    "jshint-stylish": "*",
+    "gulp-concat": "*",
+    "gulp-uglify": "*",
+    "gulp-sass": "*",
+    "connect-busboy": "*"
+  }
+}

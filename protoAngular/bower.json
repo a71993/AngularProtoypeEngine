@@ -1,0 +1,13 @@
+{
+	"name": "angularprotoypeengine",
+	"version": "0.0.1",
+	"description": "Web-based system for creating prototypes for AngularJS applications.",
+  "dependencies": {
+    "bootstrap": "*",
+    "angular": "*" ,
+    "angular-ui-router": "*",
+    "angular-file-upload": "*",
+    "angular-bootstrap": "*"
+  }
+}
+
