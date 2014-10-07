@@ -20,7 +20,7 @@
         .state('AngularProtoypeEngine.main.projects', {
           url: '/projects',
           abstract: false,
-          templateUrl:  'main/main.tpl.html',
+          templateUrl: ''
         });
         
     });
