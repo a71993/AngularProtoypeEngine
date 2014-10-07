@@ -1,3 +1,4 @@
+
 angular.module('AngularProtoypeEngine.main.projects.project', ['ui.bootstrap']);
 
 angular.module('AngularProtoypeEngine.main.projects.project', ['ui.router'])
@@ -8,6 +9,7 @@ angular.module('AngularProtoypeEngine.main.projects.project', ['ui.router'])
         templateUrl: 'project/project.tpl.html',
         controller: 'ProjectController'
       });
+    
   })
   .controller('ProjectController', function ($scope) {
     $scope.oneAtATime = true;

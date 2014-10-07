@@ -1,8 +1,11 @@
 (function(angular) {
   "use strict";
+<<<<<<< HEAD
 
 
 
+=======
+>>>>>>> b37213c87c05838fea37cefb4f642ce49bc9e112
   angular.module('AngularProtoypeEngine.main', ['ui.router', 
     'AngularProtoypeEngine.main.note', 'AngularProtoypeEngine.main.projects.project', 'AngularProtoypeEngine.main.uig.templates'])
     .config(function($stateProvider, $urlRouterProvider) {
@@ -39,5 +42,8 @@
         
         
     });
+<<<<<<< HEAD
 
+=======
+>>>>>>> b37213c87c05838fea37cefb4f642ce49bc9e112
 }(angular));
