@@ -6,11 +6,7 @@
     "bootstrap-css-only": "*",
     "angular": "*" ,
     "angular-ui-router": "*",
-<<<<<<< HEAD
-    "angular-file-upload": "*"
-=======
+    "angular-file-upload": "*",
     "angular-bootstrap": "*"
->>>>>>> da6189cfea3b7ac16e4dbcdf883f5e2a53c1b9fb
-  }
 }
 
