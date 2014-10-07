@@ -3,11 +3,18 @@
 	"version": "0.0.1",
 	"description": "Web-based system for creating prototypes for AngularJS applications.",
   "dependencies": {
+<<<<<<< HEAD
     "bootstrap": "*",
+=======
+    "bootstrap-css-only": "*",
+>>>>>>> cdb523c0517da60267e2abbcd73bf3a49f5af6ac
     "angular": "*" ,
     "angular-ui-router": "*",
     "angular-file-upload": "*",
     "angular-bootstrap": "*"
+<<<<<<< HEAD
   }
+=======
+>>>>>>> cdb523c0517da60267e2abbcd73bf3a49f5af6ac
 }
 
