@@ -1,7 +1,7 @@
 
-  angular.module('AngularProtoypeEngine.main.uig.templates', ['ui.bootstrap']);
+  angular.module('AngularProtoypeEngine.main.uig.uig', ['ui.bootstrap']);
 
-  angular.module('AngularProtoypeEngine.main.uig.templates', ['ui.router'])
+  angular.module('AngularProtoypeEngine.main.uig.uig', ['ui.router'])
   .config(function ($stateProvider) {
     $stateProvider
       .state('AngularProtoypeEngine.main.uig.templates', {
