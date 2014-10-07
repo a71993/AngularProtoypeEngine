@@ -23,6 +23,7 @@
     "jshint-stylish": "*",
     "gulp-concat": "*",
     "gulp-uglify": "*",
-    "gulp-sass": "*"
+    "gulp-sass": "*",
+    "connect-busboy": "*"
   }
 }
