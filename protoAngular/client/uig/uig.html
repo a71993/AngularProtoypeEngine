@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html ng-app="myUig">
+  <head>
+    <link rel="stylesheet" type="text/css" href="lib/bootstrap-css-only/css/bootstrap.css">
+    <script type="text/javascript" src="angular.min.js"></script>
+    <script type="text/javascript" src="uig.js"></script>
+  </head>
+  
+  
+  <body>
+      <div  ng-controller = "AccordionsController as accordionCtrl">
+
+        <accordion close-others="oneAtATime" >
+            <accordion-group heading="{{group.title}}" ng-repeat="group in groups">
+      {{group.title}}
+    </accordion-group>
+
+          <accordion-group heading="{{group.title}}" ng-repeat="group in groups">
+      
+       <div ng-repeat="item in group.items">
+            <a ng-href="*/{{hash}}">{{item}}</a>
+          </div>
+     
+     
+    </accordion-group>
+
+  </accordion>
+</div>
+
+  
+  </body>
+</html>
+
+
+
+
+
+
+
+
