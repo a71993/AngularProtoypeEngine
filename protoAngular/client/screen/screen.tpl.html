@@ -1,0 +1,38 @@
+ <!--if cliked in accordion load screen in the future-->
+<div ng-app="ScreenController">
+    <div >
+      <div>
+          <h4>Preview</h4>
+        <!--previre angular function-->
+        </div>
+    <div >
+          <h4>Source</h4>
+          <textarea ng-init="fetchHTMLCode()" cols="30" rows="10"><!--in the future {{htmldata}} --></textarea>
+    </div>
+    <div>
+          <h4>Data</h4>
+          <button id="editdatabtn" ng-click="editData()">Edit data</button>
+          <table>
+              <tr >
+                  <td >Name</td>
+                  <td>File</td>
+              </tr>
+              <tr ng-repeat="data in datas">
+                  <td><!--{{data.name}}--></td>
+                  <td><!--data.filen--></td>
+                  
+              </tr>
+          </table>
+  
+    </div>
+    <div>
+        <button id="previrwbtn" ng-click="previewData()">Preview</button>
+        <button id="deletebtn" ng-click="deleteData()">Delete</button>
+        <button id="savebtn" ng-click="saveData">Save</button>
+      </div>
+
+</div>
+       
+    
+    
+</div>
