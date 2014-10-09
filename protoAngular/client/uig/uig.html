@@ -1,10 +1,16 @@
 
+
+
 <div ng-controller="UigController">
 
-  <accordion close-others="oneAtATime">
+  <accordion class="korvalMenuu" close-others="oneAtATime">
 
     <accordion-group heading="{{group.title}}" ng-repeat="group in groups">
-      {{group.items}}
+    <div ng-repeat="item in group.items">
+    <button class="btn btn-default btn-sm" > {{item}} </button>
+    <p></p>
+    </div>
+    <button class="btn btn-default btn-sm buttonNew"> New </button>
     </accordion-group>
 
  
