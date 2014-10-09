@@ -1,5 +1,8 @@
  <!--if cliked in accordion load screen in the future-->
 <div ng-app="ScreenController">
+    <div>
+        <h5>Name:</h5>
+    </div>
     <div >
       <div>
           <h4>Preview</h4>
@@ -11,8 +14,8 @@
     </div>
     <div>
           <h4>Data</h4>
-          <button id="editdatabtn" ng-click="editData()">Edit data</button>
-          <table>
+          
+          <table border="1">
               <tr >
                   <td >Name</td>
                   <td>File</td>
@@ -23,9 +26,10 @@
                   
               </tr>
           </table>
+          <button id="editdatabtn" ng-click="editData()">Edit data</button>
   
     </div>
-    <div>
+    <div align="right">
         <button id="previrwbtn" ng-click="previewData()">Preview</button>
         <button id="deletebtn" ng-click="deleteData()">Delete</button>
         <button id="savebtn" ng-click="saveData">Save</button>

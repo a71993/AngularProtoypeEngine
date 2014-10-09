@@ -1,4 +1,12 @@
-angular.module('AngularPrototypeEngine',  ['ui.router'])
+angular.module('AngularPrototypeEngine.main.screen.screen',  ['ui.router'])
+.config(function ($stateProvider) {
+    $stateProvider
+      .state('AngularProtoypeEngine.main.uig.templates', {
+        url: '/screen',
+        templateUrl: 'screen/screen.tpl.html',
+        controller: 'ScreenController'
+      });
+  })
   .controller('ScreenController', ['$scope', '$http', '$templateCache',
     function($scope, $http, $templateCache) {
       $scope.method = 'GET';
