@@ -1,8 +1,10 @@
 (function (angular) {
   'use strict';
   angular.module('AngularProtoypeEngine', [
-    'ui.router'
- ,'AngularProtoypeEngine.main'])
+    'ui.router',
+    'ui.bootstrap',
+    'angularFileUpload',
+  'AngularProtoypeEngine.main'])
   .config(function ($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/AngularProtoypeEngine/main/notes');
 

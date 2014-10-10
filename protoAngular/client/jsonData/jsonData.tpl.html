@@ -1,10 +1,52 @@
 <div class="container-fluid">
 
     <h2>Upload json</h2>
-    <section>
-        {{ message }}
-    </section>
-    <input type="textarea" name="jsonPlain" />
-    <input type="file" name="jsonFile" />
-    <input type="submit" />
+    
+    <div class="alert alert-danger" role="alert" collapse="isCollapsed">
+        <strong>Error:</strong> Invalid json!
+    </div>
+    
+    <div class="col-md-6">
+    
+        <div class="form-group">
+            <label for="jsonTitle">Title</label>
+            <input type="text" name="jsonTitle" class="form-control" ng-model="title">
+        </div>
+
+         <div class="form-group">
+             <label for="jsonPlain">Json as text</label>
+            <textarea name="jsonPlain" class="form-control" ng-model="content"></textarea>
+        </div>
+        <!--<div class="form-group">-->
+        <!--    <label for="jsonFile">Json as file</label>-->
+        <!--    <input type="file" name="jsonFile" nv-file-select="" uploader="uploader" />-->
+        <!--</div>-->
+        <button type="button" class="btn" ng-click="addJsonData()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
+              <span class="glyphicon glyphicon-upload"></span> Upload
+        </button>
+        
+        <table class="table">
+        <tr>
+            <th>json</th>
+            <th>action</th>
+        </tr>
+        <tr ng-repeat="data in jsonData">
+            <td ng-click="show(data)">{{data.title}}
+            </td>
+            <td>
+            <!--<button type="button" class"btn">-->
+            <!--    <span class="glyphicon glyphicon-download"></span> Download-->
+            <!--</button>-->
+            <button type="button" class"btn">
+                <span class="glyphicon glyphicon-edit"></span> Edit
+            </button>
+            <button type="button" class"btn">
+                <span class="glyphicon glyphicon-remove"></span> Remove
+            </button>
+            </td>
+        </tr>    
+            
+        </table>
+
+    </div>
 </div>

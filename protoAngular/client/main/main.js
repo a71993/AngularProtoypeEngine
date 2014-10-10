@@ -1,7 +1,7 @@
 (function(angular) {
   "use strict";
-  angular.module('AngularProtoypeEngine.main', ['ui.router', 
-    'AngularProtoypeEngine.main.note', 'AngularProtoypeEngine.main.projects.project'])
+  angular.module('AngularProtoypeEngine.main', [
+    'AngularProtoypeEngine.main.note', 'AngularProtoypeEngine.main.projects.project','AngularProtoypeEngine.main.jsonData' ])
     .config(function($stateProvider, $urlRouterProvider) {
       $urlRouterProvider
         .when('/AngularProtoypeEngine/main', '/AngularProtoypeEngine/main/notes');

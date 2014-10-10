@@ -1,5 +1,5 @@
 
-angular.module('AngularProtoypeEngine.main.projects.project', ['ui.router','ui.bootstrap'])
+angular.module('AngularProtoypeEngine.main.projects.project', [])
   .config(function ($stateProvider) {
     $stateProvider
       .state('AngularProtoypeEngine.main.projects.project', {
