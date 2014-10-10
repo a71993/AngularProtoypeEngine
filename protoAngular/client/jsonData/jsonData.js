@@ -29,9 +29,6 @@ angular.module('AngularProtoypeEngine.main.jsonData', [])
   
       $scope.jsonData = jsonData.jsonData;
       
-      $scope.jsonData.push({title: 'sommer', content: {somethang: 'else', other: 123}});
-      $scope.jsonData.push({title: 'argonaut', content: {ll: 'aa', other: 'ww'}});
-      
       $scope.title = '';
       $scope.content = '';
       $scope.isCollapsed=true;
