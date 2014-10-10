@@ -9,14 +9,16 @@ angular.module('AngularProtoypeEngine.main.projects.project', [])
       });
     
   })
-  .controller('ProjectController', function ($scope) {
+  .controller('ProjectController', function ($scope, $state) {
     $scope.oneAtATime = true;
 
     $scope.projectDatas = [];
     $scope.projectComponents = [];
     $scope.projectScreens = [];
   
-    $scope.addData = function() {};
+    $scope.addData = function() {
+      $state.go('AngularProtoypeEngine.main.jsonData');
+    };
     $scope.addComponent = function() {};
     $scope.addScreen = function() {};
 });
