@@ -26,7 +26,8 @@ angular.module('AngularProtoypeEngine.main.jsonData', [])
               return '|json|'.indexOf(type) !== -1;
           }
       });
-  
+      
+      $scope.errorMessage = '';
       $scope.jsonData = jsonData.jsonData;
       
       $scope.title = '';
@@ -34,11 +35,21 @@ angular.module('AngularProtoypeEngine.main.jsonData', [])
       $scope.isCollapsed=true;
       
       $scope.addJsonData = function(){
-        if($scope.title ==='') { return; }
+        if($scope.title ==='') { 
+          $scope.errorMessage = 'Title is missing!';
+          $scope.isCollapsed=false;
+          return; 
+        }
+        if($scope.content ==='') { 
+          $scope.errorMessage = 'Content is missing!';
+          $scope.isCollapsed=false;
+          return; 
+        }
         try{
           JSON.parse($scope.content);
         }catch(e){
           console.log("error: "+e);
+          $scope.errorMessage = 'Invalid json!';
           $scope.isCollapsed=false;
           return;
         }
@@ -49,6 +60,7 @@ angular.module('AngularProtoypeEngine.main.jsonData', [])
         $scope.title = '';
         $scope.content = '';
         $scope.isCollapsed=true;
+        $scope.errorMessage = '';
       };
       
       $scope.show = function(modalData){
