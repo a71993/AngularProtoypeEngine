@@ -27,24 +27,18 @@ angular.module('AngularProtoypeEngine.main.jsonData', [])
           }
       });
       
-      $scope.errorMessage = '';
       $scope.jsonData = jsonData.jsonData;
       
+      $scope.errorMessage = '';
+      $scope.isCollapsed=true;
       $scope.title = '';
       $scope.content = '';
-      $scope.isCollapsed=true;
       
       $scope.addJsonData = function(){
-        if($scope.title ==='') { 
-          $scope.errorMessage = 'Title is missing!';
-          $scope.isCollapsed=false;
-          return; 
-        }
-        if($scope.content ==='') { 
-          $scope.errorMessage = 'Content is missing!';
-          $scope.isCollapsed=false;
-          return; 
-        }
+        if(!checkField('title')) return;
+        
+        if(!checkField('content')) return;
+        
         try{
           JSON.parse($scope.content);
         }catch(e){
@@ -63,20 +57,44 @@ angular.module('AngularProtoypeEngine.main.jsonData', [])
         $scope.errorMessage = '';
       };
       
-      $scope.show = function(modalData){
+      var checkField = function(field) {
+        if($scope[field] ==='') { 
+          $scope.errorMessage = 'Field ' + field + ' is missing!';
+          $scope.isCollapsed=false;
+          return false;
+        }
+        return true;
+      };
+      
+      $scope.show = function(modalData, readOnly){
         var modalInstance = $modal.open({
             templateUrl: 'jsonData/jsonDataModal.tpl.html',
             controller: 'jsonDataModalController',
             resolve: {
               modalData: function () {
                 return modalData;
+              },
+              readOnly: function () {
+                return readOnly;
               }
             }
         });
+        modalInstance.result.then(function (jsonData) {
+          console.log(jsonData);
+        });
       };
+      
+      $scope.removeJsonData = function(index) {
+         jsonData.remove(index);
+      };
+      
+      $scope.updateJsonData = function(jsonData, readOnly) {
+        $scope.show(jsonData, readOnly);
+        // jsonData.update(index);
+      }; 
 }])
-.factory('jsonData',['$http', function($http){
-  // service body
+.factory('jsonData',['$http', '$filter', function($http, $filter){
+  
   var o = {
     jsonData: []
   };
@@ -90,16 +108,36 @@ angular.module('AngularProtoypeEngine.main.jsonData', [])
       o.jsonData.push(data);
     });
   };
+  o.remove = function(index) {
+    console.log("deleting " + o.jsonData[index]._id);
+    return $http.delete('/jsonData/'+ o.jsonData[index]._id).success(function(resp){
+      o.jsonData.splice(index,1);
+      console.log(resp.message);
+    });
+  };
+  o.update = function(index) {
+    console.log("editing " + o.jsonData[index]._id);
+    return $http.put('/jsonData/'+ o.jsonData[index]._id).success(function(resp){
+      o.jsonData.splice(index,1);
+      console.log(resp.message);
+    });
+  };
   return o;
 }]);
 
-angular.module('AngularProtoypeEngine.main.jsonData').controller('jsonDataModalController', function ($scope, $modalInstance, modalData) {
+angular.module('AngularProtoypeEngine.main.jsonData')
+.controller('jsonDataModalController', ['$scope', '$modalInstance', 'jsonData', 'modalData', 'readOnly', function ($scope, $modalInstance, jsonData, modalData, readOnly) {
 
   $scope.title = modalData.title;
   $scope.content = modalData.content;
+  $scope.readOnly = readOnly;
+  $scope.index = jsonData.jsonData.indexOf(modalData);
 
   $scope.ok = function () {
-    $modalInstance.close();
+    jsonData.jsonData[$scope.index].title = $scope.title;
+    jsonData.jsonData[$scope.index].content = $scope.content;
+    jsonData.update($scope.index);
+    $modalInstance.close(jsonData.jsonData[$scope.index]);
   };
 
-});
+}]);

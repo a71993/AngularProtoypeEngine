@@ -1,8 +1,8 @@
 
-angular.module('AngularProtoypeEngine.main.projects.project', [])
+angular.module('AngularProtoypeEngine.main.project', [])
   .config(function ($stateProvider) {
     $stateProvider
-      .state('AngularProtoypeEngine.main.projects.project', {
+      .state('AngularProtoypeEngine.main.project', {
         url: '/project',
         templateUrl: 'project/project.tpl.html',
         controller: 'ProjectController'

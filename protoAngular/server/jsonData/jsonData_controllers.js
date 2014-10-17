@@ -25,5 +25,13 @@ module.exports = exports = {
       .fail(function (reason) {
         next(reason);
       });
+  },
+  
+  put: function(req, res, next){
+      
+  },
+  
+  delete: function(req, res, next){
+      
   }
 };

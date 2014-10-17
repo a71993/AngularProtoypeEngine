@@ -1,10 +1,8 @@
 
-  angular.module('AngularProtoypeEngine.main.uig.uig', ['ui.bootstrap']);
-
-  angular.module('AngularProtoypeEngine.main.uig.uig', ['ui.router'])
+  angular.module('AngularProtoypeEngine.main.uig', ['ui.router'])
   .config(function ($stateProvider) {
     $stateProvider
-      .state('AngularProtoypeEngine.main.uig.templates', {
+      .state('AngularProtoypeEngine.main.uig', {
         url: '/uig',
         templateUrl: 'uig/uig.html',
         controller: 'UigController'
