@@ -1,0 +1,39 @@
+.buttonNew {
+    background-color:black;
+    color:white;
+    font-weight: bold;
+}
+
+.korvalMenuu{
+    position: absolute;
+    left: 0px;
+    width: 15%;
+    text-align: center;
+    
+}
+
+.naideDiv{
+    box-shadow: 10px 10px 5px #888888;
+}
+
+.paremale{
+    position: absolute;
+    right: 0px;
+    width: 300px;
+    
+}
+.nahtavale{
+    background-color: green;
+}
+
+.keskel{
+    position: absolute;
+    left: 25%;
+    width: 65%;
+    text-align: left;
+
+}
+.suur{
+    margin-bottom: 50px;
+    font-weight: bold;
+}
