@@ -19,6 +19,8 @@ angular.module('AngularProtoypeEngine.main.project', [])
     $scope.addData = function() {
       $state.go('AngularProtoypeEngine.main.jsonData');
     };
-    $scope.addComponent = function() {};
+    $scope.addComponent = function() {
+      $state.go('AngularProtoypeEngine.main.components');
+    };
     $scope.addScreen = function() {};
 });

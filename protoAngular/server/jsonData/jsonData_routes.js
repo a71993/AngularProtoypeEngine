@@ -1,6 +1,5 @@
 "use strict";
 
-var controller = require('./jsonData_controllers.js');
 var JsonData = require('./jsonData_model.js');
 
 module.exports = exports = function (router) {
