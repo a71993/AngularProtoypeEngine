@@ -1,3 +1,14 @@
-<div class="nahtavale">
-	asdasdsadasd
-	<div>
+<div ng-controller="TabsDemoCtrl">
+
+
+  <tabset>
+  
+    <tab ng-repeat="tab in tabs" heading="{{tab.title}}" active="tab.active">
+
+      {{tab.content}}
+      
+    </tab>
+
+  </tabset>
+
+</div>
