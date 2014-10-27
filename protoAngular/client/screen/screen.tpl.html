@@ -34,7 +34,7 @@
                     <td> <input type="checkbox"></td>
                 </tr>
             </table>
-            <button type="button" class="btn"  ng-click="addDummyData()">
+            <button type="button" class="btn" disabled ng-click="addDummyData()">
                 <span class="glyphicon glyphicon-plus"></span>Add data
             </button>
         </div>
@@ -47,7 +47,7 @@
             <button type="button" class="btn" ng-click="addScreen()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
                 <span class="glyphicon glyphicon-upload"></span> Save
             </button>
-            <button type="button" disabled class="btn" ng-click="viewPreview" ng-displed="item.isReady || item.isUploading || item.isSuccess">
+            <button type="button" disabled class="btn" ng-click="viewPreview()" ng-displed="item.isReady || item.isUploading || item.isSuccess">
                 <span class="glyphicon glyphicon-new-window"></span> Preview
             </button>
         </div>
