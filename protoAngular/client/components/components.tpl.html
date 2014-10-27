@@ -1,13 +1,13 @@
 <div class="container-fluid">
 
-    <h2>Component</h2>
+    <h2>{{title}}</h2>
     
     <div class="alert alert-danger" role="alert" collapse="isCollapsed">
         <strong>Error:</strong> {{errorMessage}}
     </div>
     
     <div class="col-md-6">
-    
+        
         <div class="form-group">
             <label for="componentTitle">Title</label>
             <input type="text" name="componentTitle" class="form-control" ng-model="title">
@@ -17,37 +17,10 @@
              <label for="componentHtml">Component html</label>
             <textarea name="componentHtml" class="form-control" ng-model="HTMLcontent"></textarea>
         </div>
-        <!--<div class="form-group">-->
-        <!--    <label for="jsonFile">Json as file</label>-->
-        <!--    <input type="file" name="jsonFile" nv-file-select="" uploader="uploader" />-->
-        <!--</div>-->
+
         <button type="button" class="btn" ng-click="addComponent()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
               <span class="glyphicon glyphicon-upload"></span> Save
         </button>
         
-                
-        <table class="table">
-        <tr>
-            <th>component</th>
-            <th>action</th>
-        </tr>
-        <tr ng-repeat="data in uiComponent">
-            <td ng-click="show(data, true)">{{data.title}}
-            </td>
-            <td>
-            <!--<button type="button" class"btn">-->
-            <!--    <span class="glyphicon glyphicon-download"></span> Download-->
-            <!--</button>-->
-            <button type="button" class"btn" ng-click="updateComponent(data, false)">
-                <span class="glyphicon glyphicon-edit"></span> Edit
-            </button>
-            <button type="button" class"btn" ng-click="removeComponent($index)">
-                <span class="glyphicon glyphicon-remove"></span> Remove
-            </button>
-            </td>
-        </tr>    
-            
-        </table>
-
     </div>
 </div>
