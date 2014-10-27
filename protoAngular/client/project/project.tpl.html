@@ -1,16 +1,32 @@
 <div ng-controller="ProjectController">
-  <accordion close-others="oneAtATime" class="korvalMenuu">
-    <accordion-group heading="Project data">
-        <div ng-repeat="item in items">{{item}}</div>
-        <button class="btn btn-default btn-sm" ng-click="addData()">New data</button>
-    </accordion-group>
-    <accordion-group heading="Components">
-        <div ng-repeat="item in items">{{item}}</div>
-        <button class="btn btn-default btn-sm" ng-click="addComponent()">New component</button>
-    </accordion-group>
-    <accordion-group heading="Screens">
-        <div ng-repeat="item in items">{{item}}</div>
-        <button class="btn btn-default btn-sm" ng-click="addScreen()">New screen</button>
-    </accordion-group>
-  </accordion>
+    <accordion close-others="oneAtATime" class="korvalMenuu">
+        <accordion-group heading="Project data">
+            <div ng-repeat="data in projectDatas">{{data}}</div>
+            <button class="btn btn-default btn-accordion" ng-click="addData()">New data</button>
+        </accordion-group>
+        <accordion-group heading="Components">
+            <div ng-repeat="component in projectComponents">
+                <button class="btn btn-default btn-accordion" ng-click="setComponent(component.title)" ui-sref='AngularProtoypeEngine.main.project.components'>
+                    {{component.title}}
+                </button>
+            </div>
+            <button class="btn btn-default btn-accordion" ng-click="setComponent('')" ui-sref='AngularProtoypeEngine.main.project.components'>New component</button>
+        </accordion-group>
+        <accordion-group heading="Screens">
+            <div ng-repeat="screen in projectScreens">
+                <button class="btn btn-default btn-accordion" ng-click="setScreen(screen.title)" ui-sref='AngularProtoypeEngine.main.project.screen'>
+                    {{screen.title}}
+                </button>
+            </div>
+            <button class="btn btn-default btn-accordion" ui-sref='AngularProtoypeEngine.main.project.screen'>New screen</button>
+        </accordion-group>
+    </accordion>
+
+    <div class="projectModule">
+        <h1>{{projectName}}</h1>
+        <div ui-view class="projectModuleContainer"></div>
+    </div>
+
+
+
 </div>

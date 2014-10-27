@@ -1,9 +1,9 @@
 
-angular.module('AngularProtoypeEngine.main.screen', [])
+angular.module('AngularProtoypeEngine.main.project.screen', [])
 .config(['$stateProvider', function ($stateProvider) {
 
   $stateProvider
-    .state('AngularProtoypeEngine.main.screen', {
+    .state('AngularProtoypeEngine.main.project.screen', {
       url: '/screen',
       templateUrl: 'screen/screen.tpl.html',
       resolve: {
@@ -28,13 +28,15 @@ angular.module('AngularProtoypeEngine.main.screen', [])
       });
       
       $scope.uiScreen = uiScreen.uiScreen;
+     $scope.$parent.projectScreens=$scope.uiScreen;
       
       $scope.errorMessage = '';
       $scope.isCollapsed=true;
       $scope.title = '';
       $scope.HTMLcontent = '';
       $scope.mainpage=false;
-      
+
+
       $scope.addScreen = function(){
         if(!checkField('title')) return;
         
@@ -46,10 +48,12 @@ angular.module('AngularProtoypeEngine.main.screen', [])
           HTMLcontent: $scope.HTMLcontent,
           mainpage:$scope.mainpage
         });
+        console.log($scope.mainpage);
         $scope.title = '';
         $scope.HTMLcontent = '';
         $scope.isCollapsed=true;
         $scope.errorMessage = '';
+        $scope.mainpage=false;
       };
       
       var checkField = function(field) {
@@ -59,13 +63,21 @@ angular.module('AngularProtoypeEngine.main.screen', [])
           return false;
         }
         return true;
-      };
-      $scope.addDummyData=function(){
+      };/*
+      $scope.addDummyData=function(modalData, readOnly){
           var modalInstance=$modal.open({
               templateUrl:'screen/screenDataModal.tpl.html',
-              controller:'screenModalController'  });
+              controller:'screenModalController',
+            resolve: {
+              modalData: function () {
+                return modalData;
+              },
+              readOnly: function () {
+                return readOnly;
+              }
+            }});
           
-      };
+      };*/
       
       $scope.show = function(modalData, readOnly){
         var modalInstance = $modal.open({
@@ -94,14 +106,7 @@ angular.module('AngularProtoypeEngine.main.screen', [])
       }; 
 }])
 .factory('uiScreen',['$http', '$filter', function($http, $filter){
-  /*var j={
-      jsonData:[]
-  };
-  j.getAll = function() {
-    return $http.get('/jsonData').success(function(data){
-      angular.copy(data, j.jsonData);
-    });
-  };*/
+
     
   var o = {
     uiScreen: []
@@ -133,7 +138,7 @@ angular.module('AngularProtoypeEngine.main.screen', [])
   return o;
 }]);
 
-angular.module('AngularProtoypeEngine.main.screen')
+angular.module('AngularProtoypeEngine.main.project.screen')
 .controller('screenModalController', ['$scope', '$modalInstance', 'uiScreen', 'modalData', 'readOnly', function ($scope, $modalInstance, uiScreen, modalData, readOnly) {
 
   $scope.title = modalData.title;

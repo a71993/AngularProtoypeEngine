@@ -8,7 +8,15 @@ var UIScreenSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  HTMLcontent: {}
+  HTMLcontent: {},
+  mainpage:{
+      type:Boolean,
+      required:false
+  }/*screenData:{
+    type:
+
+  }*/
+
 });
 
 module.exports = exports = mongoose.model('uiScreen', UIScreenSchema);

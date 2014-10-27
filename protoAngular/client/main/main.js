@@ -3,7 +3,7 @@
 
   angular.module('AngularProtoypeEngine.main', [
     'AngularProtoypeEngine.main.note', 'AngularProtoypeEngine.main.project', 'AngularProtoypeEngine.main.uig',
-    'AngularProtoypeEngine.main.jsonData', 'AngularProtoypeEngine.main.components','AngularProtoypeEngine.main.screen' ])
+    'AngularProtoypeEngine.main.jsonData', 'AngularProtoypeEngine.main.project.components','AngularProtoypeEngine.main.project.screen' ])
     .config(function($stateProvider, $urlRouterProvider) {
       $urlRouterProvider
         .when('/AngularProtoypeEngine/main', '/AngularProtoypeEngine/main/notes');
