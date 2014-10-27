@@ -10,9 +10,7 @@ module.exports = exports = function (router) {
     query.exec(function (err, jsonData){
       if (err) { return next(err); }
       if (!jsonData) { return next(new Error("can't find json data")); }
-      
-      console.log(req.body);
-  
+
       req.jsonData = jsonData;
       return next();
     });
@@ -48,13 +46,11 @@ module.exports = exports = function (router) {
   });
   
   router.put('/:jsonData', function(req, res, next) {
-    console.log(req.jsonData);
-    req.jsonData = req.body;    
-    console.log(req.body);
-    var jsonData = new JsonData(req.jsonData);
-    // jsonData.save(function(err, jsonData){
-    //   if(err){ return next(err); }
-    //   res.json({ message: 'Successfully updated' });
-    // });
+    req.jsonData.title = req.body.title;
+    req.jsonData.content = req.body.content;
+    req.jsonData.save(function(err, jsonData){
+      if(err){ return next(err); }
+      res.json({ message: 'Successfully updated' });
+    });
   });
 };
