@@ -1,10 +1,11 @@
 {
-	"name": "angularprotoypeengine",
-	"description": "Web-based system for creating prototypes for AngularJS applications.",
-	"version": "0.0.1",
-	"author": "Mikk-Erik Bachmann, Getter Krutto, Jane Jürgenson, Kristiina Pokk",
+  "name": "angularprotoypeengine",
+  "description": "Web-based system for creating prototypes for AngularJS applications.",
+  "version": "0.0.1",
+  "author": "Mikk-Erik Bachmann, Getter Krutto, Jane Jürgenson, Kristiina Pokk",
   "dependencies": {
     "express": "*",
+    "method-override": "^2.3.0",
     "mongoose": "*",
     "q": "*"
   },

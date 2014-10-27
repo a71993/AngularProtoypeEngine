@@ -11,3 +11,20 @@
     text-align: center;
     
 }
+
+.projectModule{
+    position: absolute;
+    left: 25%;
+    width: 55%;
+    text-align: left;
+
+}
+
+.projectModuleContainer{
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.btn-accordion{
+    width: 90%;
+}

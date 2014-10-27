@@ -115,9 +115,9 @@ angular.module('AngularProtoypeEngine.main.jsonData', [])
       console.log(resp.message);
     });
   };
-  o.update = function(index) {
+  o.update = function(index, updatedJsonData) {
     console.log("editing " + o.jsonData[index]._id);
-    return $http.put('/jsonData/'+ o.jsonData[index]._id).success(function(resp){
+    return $http.put('/jsonData/'+ o.jsonData[index]._id, updatedJsonData).success(function(resp){
       o.jsonData.splice(index,1);
       console.log(resp.message);
     });
@@ -136,7 +136,7 @@ angular.module('AngularProtoypeEngine.main.jsonData')
   $scope.ok = function () {
     jsonData.jsonData[$scope.index].title = $scope.title;
     jsonData.jsonData[$scope.index].content = $scope.content;
-    jsonData.update($scope.index);
+    jsonData.update($scope.index, jsonData.jsonData[$scope.index]);
     $modalInstance.close(jsonData.jsonData[$scope.index]);
   };
 

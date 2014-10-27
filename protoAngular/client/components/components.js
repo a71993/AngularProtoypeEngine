@@ -1,9 +1,9 @@
 
-angular.module('AngularProtoypeEngine.main.components', [])
+angular.module('AngularProtoypeEngine.main.project.components', [])
 .config(['$stateProvider', function ($stateProvider) {
 
   $stateProvider
-    .state('AngularProtoypeEngine.main.components', {
+    .state('AngularProtoypeEngine.main.project.components', {
       url: '/components',
       templateUrl: 'components/components.tpl.html',
       resolve: {
@@ -15,6 +15,8 @@ angular.module('AngularProtoypeEngine.main.components', [])
     });
 }])
 .controller('componentsController', ['$scope', '$modal', 'FileUploader', 'uiComponent', function ($scope, $modal, FileUploader, uiComponent) {
+      
+      
       var uploader = $scope.uploader = new FileUploader({
         url: '/upload'
       });
@@ -28,11 +30,16 @@ angular.module('AngularProtoypeEngine.main.components', [])
       });
       
       $scope.uiComponent = uiComponent.uiComponent;
+      $scope.$parent.projectComponents = $scope.uiComponent;
       
       $scope.errorMessage = '';
       $scope.isCollapsed=true;
       $scope.title = '';
       $scope.HTMLcontent = '';
+      
+      $scope.$watch('selectedComponent', function() {
+        $scope.title=$scope.selectedComponent;
+      });
       
       $scope.addComponent = function(){
         if(!checkField('title')) return;
@@ -116,7 +123,7 @@ angular.module('AngularProtoypeEngine.main.components', [])
   return o;
 }]);
 
-angular.module('AngularProtoypeEngine.main.components')
+angular.module('AngularProtoypeEngine.main.project.components')
 .controller('componentsModalController', ['$scope', '$modalInstance', 'uiComponent', 'modalData', 'readOnly', function ($scope, $modalInstance, uiComponent, modalData, readOnly) {
 
   $scope.title = modalData.title;
