@@ -1,42 +1,80 @@
- <!--if cliked in accordion load screen in the future-->
-<div ng-app="ScreenController">
-    <div>
-        <h5>Name:</h5>
-    </div>
-    <div >
-      <div>
-          <h4>Preview</h4>
-        <!--previre angular function-->
-        </div>
-    <div >
-          <h4>Source</h4>
-          <textarea ng-init="fetchHTMLCode()" cols="30" rows="10"><!--in the future {{htmldata}} --></textarea>
-    </div>
-    <div>
-          <h4>Data</h4>
-          
-          <table border="1">
-              <tr >
-                  <td >Name</td>
-                  <td>File</td>
-              </tr>
-              <tr ng-repeat="data in datas">
-                  <td><!--{{data.name}}--></td>
-                  <td><!--data.filen--></td>
-                  
-              </tr>
-          </table>
-          <button id="editdatabtn" ng-click="editData()">Edit data</button>
-  
-    </div>
-    <div align="right">
-        <button id="previrwbtn" ng-click="previewData()">Preview</button>
-        <button id="deletebtn" ng-click="deleteData()">Delete</button>
-        <button id="savebtn" ng-click="saveData">Save</button>
-      </div>
+<div class="container-fluid">
 
-</div>
-       
-    
-    
+    <h2>Screen</h2>
+
+    <div class="alert alert-danger" role="alert" collapse="isCollapsed">
+        <strong>Error:</strong> {{errorMessage}}
+    </div>
+
+    <div class="col-md-6">
+
+        <div class="form-group">
+            <label for="screenTitle">Title</label>
+            <input type="text" name="screenTitle" class="form-control" ng-model="title">
+        </div>
+
+        <div class="form-group">
+            <label for="screenHtml">Screen html</label>
+            <textarea name="screenHtml" class="form-control" ng-model="HTMLcontent"></textarea>
+        </div>
+        <!--<div class="form-group">-->
+        <!--    <label for="jsonFile">Json as file</label>-->
+        <!--    <input type="file" name="jsonFile" nv-file-select="" uploader="uploader" />-->
+        <!--</div>-->
+        <div>
+            <b>Data</b>
+            <table class="table">
+                <tr>
+                    <th>File</th>
+                    <th>Name</th>
+                </tr>
+                <tr ng-repeat="data in ScreenData">
+                    <td>{{data.file}}</td>
+                    <td><input type="text"></td>
+                    <td> <input type="checkbox"></td>
+                </tr>
+            </table>
+            <button type="button" class="btn"  ng-click="addDummyData()">
+                <span class="glyphicon glyphicon-plus"></span>Add data
+            </button>
+        </div>
+
+        <div class="form-group">
+            <b>Main page:</b>
+            <input type="checkbox" ng-model="mainpage">
+        </div>
+        <div align="right">
+            <button type="button" class="btn" ng-click="addScreen()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
+                <span class="glyphicon glyphicon-upload"></span> Save
+            </button>
+            <button type="button" disabled class="btn" ng-click="viewPreview" ng-displed="item.isReady || item.isUploading || item.isSuccess">
+                <span class="glyphicon glyphicon-new-window"></span> Preview
+            </button>
+        </div>
+<!--
+
+        <table class="table">
+            <tr>
+                <th>screen</th>
+                <th>action</th>
+            </tr>
+            <tr ng-repeat="data in uiScreen">
+                <td ng-click="show(data, true)">{{data.title}}
+                </td>
+                <td>
+                    <!--<button type="button" class"btn">-->
+                    <!--    <span class="glyphicon glyphicon-download"></span> Download-->
+                    <!--</button>--><!--
+                    <button type="button" class="btn" ng-click="updateScreen(data, false)">
+                        <span class="glyphicon glyphicon-edit"></span> Edit
+                    </button>
+                    <button type="button" class="btn" ng-click="removeScreen($index)">
+                        <span class="glyphicon glyphicon-remove"></span> Remove
+                    </button>
+                </td>
+            </tr>
+
+        </table>//-->
+
+    </div>
 </div>

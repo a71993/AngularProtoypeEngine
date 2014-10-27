@@ -22,5 +22,7 @@ angular.module('AngularProtoypeEngine.main.project', [])
     $scope.addComponent = function() {
       $state.go('AngularProtoypeEngine.main.components');
     };
-    $scope.addScreen = function() {};
+    $scope.addScreen = function() {
+         $state.go('AngularProtoypeEngine.main.screen');
+    };
 });
