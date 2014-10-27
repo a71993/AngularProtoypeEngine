@@ -1,7 +1,7 @@
 "use strict";
 
 var express = require('express');
-var UigProvider = require('./uigprovider-memory').UigProvider;
+//var UigProvider = require('./uigprovider-memory').UigProvider;
 var app = express();
 var routers = {};
 var NoteRouter = express.Router();
@@ -24,8 +24,8 @@ require('../UIComponent/UIComponent_routes.js')(UIComponentRouter);
 require('../UIGComponent/UIGComponent_routes.js')(UIGComponentRouter);
 module.exports = exports = app;
 
-var uigProvider= new UigProvider();
+//var uigProvider= new UigProvider();
 
 
 
-app.listen(3000);
+//app.listen(3000);

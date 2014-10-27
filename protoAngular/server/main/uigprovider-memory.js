@@ -1,4 +1,4 @@
-var componentCounter = 1;
+/*var componentCounter = 1;
 
 UigProvider = function(){};
 UigProvider.prototype.dummyData = [];
@@ -30,10 +30,12 @@ UigProvider.prototype.save = function(components, callback) {
   
 
   }
-  callback(null, components);
+  callback(null, components);/*
 };
-
+*/
 /* Lets bootstrap with dummy data */
+
+/*
 new UigProvider().save([
   {
      "title" : "Button 1",
@@ -72,4 +74,4 @@ new UigProvider().save([
     
 ], function(error, components){});
 
-exports.UigProvider = UigProvider;
+exports.UigProvider = UigProvider;*/
