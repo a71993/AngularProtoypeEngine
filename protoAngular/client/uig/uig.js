@@ -1,14 +1,14 @@
-var appUig = angular.module('AngularProtoypeEngine.main.uig', ['ui.router']);
+var appUig = angular.module('AngularProtoypeEngine.main.uig', ['AngularProtoypeEngine.main.uig.components']);
  // angular.module('AngularProtoypeEngine.main.uig', ['ui.router'])
-  appUig.config(function ($stateProvider) {
+  appUig.config(['$stateProvider', function ($stateProvider) {
     $stateProvider
       .state('AngularProtoypeEngine.main.uig', {
         url: '/uig',
         templateUrl: 'uig/uig.html',
         controller: 'UigController'
       });
-  })
-  appUig.controller('UigController', function ($scope) {
+  }])
+  appUig.controller('UigController', function ($scope, $state) {
       $scope.oneAtATime = true;
 
       $scope.groups = [
@@ -46,25 +46,17 @@ var appUig = angular.module('AngularProtoypeEngine.main.uig', ['ui.router']);
         isFirstOpen: true
       };
       
-  });
-
-  
-  appUig.directive("buttonOne", function() {
-    return {
-      restrict: "E",
-      templateUrl: "uig/button1.html",
-      controller: function($scope) {
-       
-
-     $scope.radioModel = 'Middle';
-    /*
-      $scope.checkModel = {
-      left: false,
-      middle: true,
-      right: false
-    };*/},
-      controllerAs: "button1C"
+      $scope.selcectedComponent = '';
+     // $scope.template = 'uig/uigComponents.tml.html';
+     /* 
+      $scope.setComponent = function(comp) {
+      $scope.selectedComponent = comp;
+      console.log($scope.selectedComponent)
+        };
+      */
+      $scope.openComponent = function() {
+      $state.go('AngularProtoypeEngine.main.uig.components');
     };
+      
   });
-
-  
+ 
