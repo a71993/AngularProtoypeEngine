@@ -1,7 +1,7 @@
 (function(angular) {
   "use strict";
 
-angular.module('AngularProtoypeEngine.main.project', ['AngularProtoypeEngine.main.project.components','AngularProtoypeEngine.main.project.screen'])
+angular.module('AngularProtoypeEngine.main.project', ['AngularProtoypeEngine.main.project.components','AngularProtoypeEngine.main.project.screen', 'AngularProtoypeEngine.main.project.jsonData'])
   .config(function ($stateProvider) {
     $stateProvider
       .state('AngularProtoypeEngine.main.project', {
@@ -18,17 +18,23 @@ angular.module('AngularProtoypeEngine.main.project', ['AngularProtoypeEngine.mai
     $scope.projectDatas = [];
     $scope.projectComponents = [];
     $scope.projectScreens = [];
-    $scope.selectedComponent = '';
-    $scope.selectedScreen='';
+    $scope.selectedData = null;
+    $scope.selectedComponent = null;
+    $scope.selectedScreen = null;
 
     $scope.template='project/projectInfo.tpl.html';
   
-    $scope.addData = function() {
-      $state.go('AngularProtoypeEngine.main.jsonData');
+    $scope.setData = function(data) {
+      $scope.selectedData = data;
+      console.log($scope.selectedData);
     };
     $scope.setComponent = function(comp) {
       $scope.selectedComponent = comp;
-      console.log($scope.selectedComponent)
+      console.log($scope.selectedComponent);
+    };
+    $scope.setScreen = function(screen) {
+      $scope.selectedScreen = screen;
+      console.log($scope.selectedScreen);
     };
 
 

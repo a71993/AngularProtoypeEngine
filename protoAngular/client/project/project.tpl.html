@@ -1,31 +1,35 @@
 <div ng-controller="ProjectController">
 
     <accordion close-others="oneAtATime" class="korvalMenuu">
-        <accordion-group heading="Project data">
-            <div ng-repeat="data in projectDatas">{{data}}</div>
-            <button class="btn btn-default btn-accordion" ng-click="addData()">New data</button>
+        <accordion-group heading="Project data" ui-sref='AngularProtoypeEngine.main.project.jsonData'>
+            <div ng-repeat="data in projectDatas">
+                <button class="btn btn-default btn-accordion" ng-click="setData(data)" ui-sref='AngularProtoypeEngine.main.project.jsonData'>
+                    {{data.title}}
+                </button>
+            </div>
+            <button class="btn btn-default btn-accordion" ng-click="setData('')" ui-sref='AngularProtoypeEngine.main.project.jsonData'>New data</button>
         </accordion-group>
-        <accordion-group heading="Components">
+        <accordion-group heading="Components" ui-sref='AngularProtoypeEngine.main.project.components'>
             <div ng-repeat="component in projectComponents">
-                <button class="btn btn-default btn-accordion" ng-click="setComponent(component.title)" ui-sref='AngularProtoypeEngine.main.project.components'>
+                <button class="btn btn-default btn-accordion" ng-click="setComponent(component)" ui-sref='AngularProtoypeEngine.main.project.components'>
                     {{component.title}}
                 </button>
             </div>
             <button class="btn btn-default btn-accordion" ng-click="setComponent('')" ui-sref='AngularProtoypeEngine.main.project.components'>New component</button>
         </accordion-group>
-        <accordion-group heading="Screens">
+        <accordion-group heading="Screens" ui-sref='AngularProtoypeEngine.main.project.screen'>
             <div ng-repeat="screen in projectScreens">
-                <button class="btn btn-default btn-accordion" ng-click="setScreen(screen.title)" ui-sref='AngularProtoypeEngine.main.project.screen'>
+                <button class="btn btn-default btn-accordion" ng-click="setScreen(screen)" ui-sref='AngularProtoypeEngine.main.project.screen'>
                     {{screen.title}}
                 </button>
             </div>
-            <button class="btn btn-default btn-accordion" ui-sref='AngularProtoypeEngine.main.project.screen'>New screen</button>
+            <button class="btn btn-default btn-accordion" ng-click="setScreen('')" ui-sref='AngularProtoypeEngine.main.project.screen'>New screen</button>
         </accordion-group>
     </accordion>
 
     <div class="projectModule">
         <h1>{{projectName}}</h1>
-        <div ui-view class="projectModuleContainer"></div>
+        <div ui-view class="projectModuleContainer" ng-hide="selectedData==null && selectedComponent==null && selectedScreen==null"></div>
     </div>
 
 </div>
