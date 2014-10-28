@@ -7,12 +7,12 @@ angular.module('AngularProtoypeEngine.main.uig.components', ['ui.router'])
         controller: 'UigComponentsCtrl'
       });
   })
-.controller('UigComponentsCtrl', function ($scope) { 
+.controller('UigComponentsCtrl', function ($scope) {
 
       /*
       $scope.uigComponent = uigComponent.uigComponent;
       $scope.$parent.uigComponents = $scope.uigComponent;
-      
+
       $scope.errorMessage = '';
       $scope.isCollapsed=true;
       $scope.title = '';

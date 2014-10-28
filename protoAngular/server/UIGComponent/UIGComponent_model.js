@@ -3,12 +3,12 @@
 var mongoose = require('mongoose');
 
 var UIGComponentSchema = new mongoose.Schema({
-  
+
   title: {
     type: String,
     required: true
   },
-  HTMLcontent: {}, 
+  HTMLcontent: {},
   controller: {}
 });
 

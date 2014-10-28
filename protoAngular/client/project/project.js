@@ -1,7 +1,7 @@
 (function(angular) {
   "use strict";
 
-angular.module('AngularProtoypeEngine.main.project', ['AngularProtoypeEngine.main.project.components'])
+angular.module('AngularProtoypeEngine.main.project', ['AngularProtoypeEngine.main.project.components','AngularProtoypeEngine.main.project.screen'])
   .config(function ($stateProvider) {
     $stateProvider
       .state('AngularProtoypeEngine.main.project', {
@@ -19,7 +19,8 @@ angular.module('AngularProtoypeEngine.main.project', ['AngularProtoypeEngine.mai
     $scope.projectComponents = [];
     $scope.projectScreens = [];
     $scope.selectedComponent = '';
-    
+    $scope.selectedScreen='';
+
     $scope.template='project/projectInfo.tpl.html';
   
     $scope.addData = function() {
@@ -29,7 +30,9 @@ angular.module('AngularProtoypeEngine.main.project', ['AngularProtoypeEngine.mai
       $scope.selectedComponent = comp;
       console.log($scope.selectedComponent)
     };
-    $scope.addScreen = function() {};
+
+
 });
+
 
 }(angular));

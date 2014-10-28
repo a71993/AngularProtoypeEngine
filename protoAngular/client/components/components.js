@@ -15,8 +15,8 @@ angular.module('AngularProtoypeEngine.main.project.components', [])
     });
 }])
 .controller('componentsController', ['$scope', '$modal', 'FileUploader', 'uiComponent', function ($scope, $modal, FileUploader, uiComponent) {
-      
-      
+
+
       var uploader = $scope.uploader = new FileUploader({
         url: '/upload'
       });
@@ -41,7 +41,7 @@ angular.module('AngularProtoypeEngine.main.project.components', [])
         $scope.title=$scope.selectedComponent.title;
         $scope.HTMLcontent=$scope.selectedComponent.HTMLcontent;
       });
-      
+
       $scope.addComponent = function(){
         if(!checkField('title')) return;
         

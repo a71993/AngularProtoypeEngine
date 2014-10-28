@@ -94,7 +94,7 @@ angular.module('AngularProtoypeEngine.main.jsonData', [])
       }; 
 }])
 .factory('jsonData',['$http', '$filter', function($http, $filter){
-  
+  /*
   var o = {
     jsonData: []
   };
@@ -102,7 +102,7 @@ angular.module('AngularProtoypeEngine.main.jsonData', [])
     return $http.get('/jsonData').success(function(data){
       angular.copy(data, o.jsonData);
     });
-  };
+  };*/
   o.create = function(jsonData) {
     return $http.post('/jsonData', jsonData).success(function(data){
       o.jsonData.push(data);

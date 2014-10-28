@@ -10,7 +10,7 @@ module.exports = exports = function (router) {
     query.exec(function (err, jsonData){
       if (err) { return next(err); }
       if (!jsonData) { return next(new Error("can't find json data")); }
-      
+
       req.jsonData = jsonData;
       return next();
     });

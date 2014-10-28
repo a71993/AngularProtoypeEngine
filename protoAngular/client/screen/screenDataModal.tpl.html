@@ -1,0 +1,23 @@
+<div class="modal-header">
+    <h3 class="modal-title">Select data</h3>
+</div>
+<div class="modal-body">
+    <table >
+        <tr>
+            <th>File</th>
+            <th>Name</th>
+        </tr>
+        <tr ng-repeat="data in JsonData">
+            <td>{{data}}</td>    
+            <td>Name: <input type="text"> </td>  
+            <td> <input type="checkbox" ng-model="includeData"</td>
+        </tr>
+    
+    
+    </table>
+          
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="okData()">OK</button>
+    <button class="btn btn-warning" ng-click="cancelData()">Cancel</button>
+</div>

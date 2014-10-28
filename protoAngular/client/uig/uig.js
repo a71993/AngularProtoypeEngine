@@ -48,7 +48,7 @@ var appUig = angular.module('AngularProtoypeEngine.main.uig', ['AngularProtoypeE
       
       $scope.selcectedComponent = '';
      // $scope.template = 'uig/uigComponents.tml.html';
-     /* 
+     /*
       $scope.setComponent = function(comp) {
       $scope.selectedComponent = comp;
       console.log($scope.selectedComponent)
@@ -57,6 +57,6 @@ var appUig = angular.module('AngularProtoypeEngine.main.uig', ['AngularProtoypeE
       $scope.openComponent = function() {
       $state.go('AngularProtoypeEngine.main.uig.components');
     };
-      
+
   });
- 
+
