@@ -23,6 +23,7 @@ require('./config.js')(app, express, routers);
 require('../note/note_routes.js')(NoteRouter);
 require('../jsonData/jsonData_routes.js')(JsonDataRouter);
 require('../UIComponent/UIComponent_routes.js')(UIComponentRouter);
+require('../UIGComponent/UIComponent_routes.js')(UIGComponentRouter);
 require('../UIScreen/UIScreen_routes.js')(UIScreenRouter);
 
 module.exports = exports = app;
