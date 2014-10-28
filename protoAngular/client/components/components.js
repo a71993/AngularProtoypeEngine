@@ -38,7 +38,8 @@ angular.module('AngularProtoypeEngine.main.project.components', [])
       $scope.HTMLcontent = '';
       
       $scope.$watch('selectedComponent', function() {
-        $scope.title=$scope.selectedComponent;
+        $scope.title=$scope.selectedComponent.title;
+        $scope.HTMLcontent=$scope.selectedComponent.HTMLcontent;
       });
       
       $scope.addComponent = function(){

@@ -6,7 +6,7 @@
     </accordion-group>
     <accordion-group heading="Components">
         <div ng-repeat="component in projectComponents" >
-            <button class="btn btn-default btn-accordion" ng-click="setComponent(component.title)" ui-sref='AngularProtoypeEngine.main.project.components'>
+            <button class="btn btn-default btn-accordion" ng-click="setComponent(component)" ui-sref='AngularProtoypeEngine.main.project.components'>
                 {{component.title}}
             </button>
         </div>
