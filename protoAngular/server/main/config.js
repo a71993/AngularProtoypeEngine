@@ -22,7 +22,8 @@ module.exports = exports = function (app, express, routers) {
   app.use('/note', routers.NoteRouter);
   app.use('/jsonData', routers.JsonDataRouter);
   app.use('/uiComponent', routers.UIComponentRouter);
-  
+  app.use('/uigComponent', routers.UIGComponentRouter);
+  app.use('/uiScreen', routers.UIScreenRouter);
   app.use(middle.logError);
   app.use(middle.handleError);
 };

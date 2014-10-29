@@ -1,13 +1,11 @@
 <div class="container-fluid">
-
-    <h2>{{title}}</h2>
     
     <div class="alert alert-danger" role="alert" collapse="isCollapsed">
         <strong>Error:</strong> {{errorMessage}}
     </div>
     
     <div class="col-md-6">
-
+        <h1>{{selectedComponent.title}}</h1>
         <div class="form-group">
             <label for="componentTitle">Title</label>
             <input type="text" name="componentTitle" class="form-control" ng-model="title">
@@ -18,8 +16,16 @@
             <textarea name="componentHtml" class="form-control" ng-model="HTMLcontent"></textarea>
         </div>
 
-        <button type="button" class="btn" ng-click="addComponent()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
-              <span class="glyphicon glyphicon-upload"></span> Save
+        <button type="button" class="btn" ng-click="addComponent()" ng-disabled="item.isReady || item.isUploading || item.isSuccess" ng-show="newComponentSelected()">
+              <span class="glyphicon"></span> Save
+        </button>
+
+        <button type="button" class"btn" ng-click="updateComponent()" ng-hide="selectedComponent==null || newComponentSelected()">
+            <span class="glyphicon"></span> Update
+        </button>
+        
+        <button type="button" class"btn" ng-click="removeComponent()" ng-hide="selectedComponent==null || newComponentSelected()">
+            <span class="glyphicon"></span> Remove
         </button>
 
     </div>

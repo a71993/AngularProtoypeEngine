@@ -1,9 +1,9 @@
 
-angular.module('AngularProtoypeEngine.main.jsonData', [])
+angular.module('AngularProtoypeEngine.main.project.jsonData', [])
 .config(['$stateProvider', function ($stateProvider) {
 
   $stateProvider
-    .state('AngularProtoypeEngine.main.jsonData', {
+    .state('AngularProtoypeEngine.main.project.jsonData', {
       url: '/jsonData',
       templateUrl: 'jsonData/jsonData.tpl.html',
       resolve: {
@@ -28,11 +28,19 @@ angular.module('AngularProtoypeEngine.main.jsonData', [])
       });
       
       $scope.jsonData = jsonData.jsonData;
+      $scope.$parent.projectDatas=$scope.jsonData;
       
       $scope.errorMessage = '';
       $scope.isCollapsed=true;
       $scope.title = '';
       $scope.content = '';
+      
+      $scope.$watch('selectedData', function() {
+        if($scope.selectedData != null){
+          $scope.title=$scope.selectedData.title;
+        $scope.content=$scope.selectedData.content;
+        }
+      });
       
       $scope.addJsonData = function(){
         if(!checkField('title')) return;
@@ -94,7 +102,7 @@ angular.module('AngularProtoypeEngine.main.jsonData', [])
       }; 
 }])
 .factory('jsonData',['$http', '$filter', function($http, $filter){
-  /*
+  
   var o = {
     jsonData: []
   };
@@ -102,7 +110,7 @@ angular.module('AngularProtoypeEngine.main.jsonData', [])
     return $http.get('/jsonData').success(function(data){
       angular.copy(data, o.jsonData);
     });
-  };*/
+  };
   o.create = function(jsonData) {
     return $http.post('/jsonData', jsonData).success(function(data){
       o.jsonData.push(data);
@@ -125,7 +133,7 @@ angular.module('AngularProtoypeEngine.main.jsonData', [])
   return o;
 }]);
 
-angular.module('AngularProtoypeEngine.main.jsonData')
+angular.module('AngularProtoypeEngine.main.project.jsonData')
 .controller('jsonDataModalController', ['$scope', '$modalInstance', 'jsonData', 'modalData', 'readOnly', function ($scope, $modalInstance, jsonData, modalData, readOnly) {
 
   $scope.title = modalData.title;
