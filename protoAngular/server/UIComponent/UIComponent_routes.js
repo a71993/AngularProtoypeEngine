@@ -49,13 +49,12 @@ module.exports = exports = function (router) {
   });
   
   router.put('/:uiComponent', function(req, res, next) {
-    console.log(req.uiComponent);
-    req.uiComponent = req.body;    
-    console.log(req.body);
-    var uiComponent = new UIComponent(req.uiComponent);
-    // uiComponent.save(function(err, jsonData){
-    //   if(err){ return next(err); }
-    //   res.json({ message: 'Successfully updated' });
-    // });
+    req.uiComponent.title = req.body.title;
+    req.uiComponent.content = req.body.content;
+    req.uiComponent.save(function(err, uiComponent){
+      if(err){return next(err); }
+      res.json({ message: 'Successfully updated'});
+    });
   });
+  
 };

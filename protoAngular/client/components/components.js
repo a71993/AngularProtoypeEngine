@@ -38,9 +38,12 @@ angular.module('AngularProtoypeEngine.main.project.components', [])
       $scope.HTMLcontent = '';
       
       $scope.$watch('selectedComponent', function() {
-        if($scope.selectedComponent!=null){
+        if($scope.selectedComponent!=null && $scope.selectedComponent!==''){
           $scope.title=$scope.selectedComponent.title;
           $scope.HTMLcontent=$scope.selectedComponent.HTMLcontent;
+        }else{
+          $scope.title='';
+          $scope.HTMLcontent='';
         }  
       });
 
@@ -49,12 +52,11 @@ angular.module('AngularProtoypeEngine.main.project.components', [])
         
         if(!checkField('HTMLcontent')) return;
 
-        uiComponent.create({
+        $scope.$parent.selectedComponent= uiComponent.create({
           title: $scope.title,
           HTMLcontent: $scope.HTMLcontent
         });
-        $scope.title = '';
-        $scope.HTMLcontent = '';
+        console.log($scope.selectedComponent);
         $scope.isCollapsed=true;
         $scope.errorMessage = '';
       };
@@ -86,13 +88,24 @@ angular.module('AngularProtoypeEngine.main.project.components', [])
         });
       };
       
-      $scope.removeComponent = function(index) {
-         uiComponent.remove(index);
+      $scope.removeComponent = function() {
+         uiComponent.remove($scope.selectedComponent);
+         $scope.$parent.selectedComponent=null;
       };
       
-      $scope.updateComponent = function(uiComponent, readOnly) {
-        $scope.show(uiComponent, readOnly);
+      $scope.updateComponent = function() {
+        $scope.$parent.selectedComponent.title=$scope.title;
+        $scope.$parent.selectedComponent.HTMLcontent=$scope.HTMLcontent;
+        uiComponent.update($scope.selectedComponent);
       }; 
+      
+      $scope.newComponentSelected = function() {
+        if($scope.selectedComponent !== null && $scope.selectedComponent === ''){
+          return true;
+        }else{
+          return false;
+        }
+      }
 }])
 .factory('uiComponent',['$http', '$filter', function($http, $filter){
   
@@ -109,17 +122,15 @@ angular.module('AngularProtoypeEngine.main.project.components', [])
       o.uiComponent.push(data);
     });
   };
-  o.remove = function(index) {
-    console.log("deleting " + o.uiComponent[index]._id);
-    return $http.delete('/uiComponent/'+ o.uiComponent[index]._id).success(function(resp){
-      o.uiComponent.splice(index,1);
+  o.remove = function(uiComponent) {
+    console.log("deleting " + uiComponent._id);
+    return $http.delete('/uiComponent/'+ uiComponent._id).success(function(resp){
+      o.uiComponent.splice(o.uiComponent.indexOf(uiComponent),1);
       console.log(resp.message);
     });
   };
-  o.update = function(index) {
-    console.log("editing " + o.uiComponent[index]._id);
-    return $http.put('/uiComponent/'+ o.uiComponent[index]._id).success(function(resp){
-      o.uiComponent.splice(index,1);
+  o.update = function(updatedUiComponent) {
+    return $http.put('/uiComponent/'+ updatedUiComponent._id, updatedUiComponent).success(function(resp){
       console.log(resp.message);
     });
   };
