@@ -40,12 +40,12 @@ angular.module('AngularProtoypeEngine.main.uig', ['AngularProtoypeEngine.main.ui
 
    
    
-    $scope.proov = "nuppu valik";
+   // $scope.proov = "nuppu valik";
     $scope.uigComponents = [];
     $scope.selectedUigComponent = null;
    
-
-  $scope.setUigComponent = function(comp) {
+//see on funktsioon, millega tuvastab, millisele nupule vajutati (nagu project.js setComponent)
+  $scope.setUigComponent = function(comp) { 
       $scope.selectedUigComponent = comp;
       console.log($scope.selectedUigComponent);
     };
