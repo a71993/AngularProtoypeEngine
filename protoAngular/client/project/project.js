@@ -23,7 +23,7 @@ angular.module('AngularProtoypeEngine.main.project', ['AngularProtoypeEngine.mai
     $scope.selectedScreen = null;
 
     $scope.template='project/projectInfo.tpl.html';
-  
+    
     $scope.setData = function(data) {
       $scope.selectedData = data;
       console.log($scope.selectedData);
@@ -36,7 +36,6 @@ angular.module('AngularProtoypeEngine.main.project', ['AngularProtoypeEngine.mai
       $scope.selectedScreen = screen;
       console.log($scope.selectedScreen);
     };
-
 
 });
 

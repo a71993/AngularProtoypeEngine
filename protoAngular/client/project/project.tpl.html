@@ -1,7 +1,7 @@
 <div ng-controller="ProjectController">
 
     <accordion close-others="oneAtATime" class="korvalMenuu">
-        <accordion-group heading="Project data" ui-sref='AngularProtoypeEngine.main.project.jsonData'>
+        <accordion-group heading="Project data" ui-sref='AngularProtoypeEngine.main.project.jsonData' ng-click="setComponent(null); setScreen(null)">
             <div ng-repeat="data in projectDatas">
                 <button class="btn btn-default btn-accordion" ng-click="setData(data)" ui-sref='AngularProtoypeEngine.main.project.jsonData'>
                     {{data.title}}
@@ -9,7 +9,7 @@
             </div>
             <button class="btn btn-default btn-accordion" ng-click="setData('')" ui-sref='AngularProtoypeEngine.main.project.jsonData'>New data</button>
         </accordion-group>
-        <accordion-group heading="Components" ui-sref='AngularProtoypeEngine.main.project.components'>
+        <accordion-group heading="Components" ui-sref='AngularProtoypeEngine.main.project.components' ng-click="setData(null); setScreen(null)">
             <div ng-repeat="component in projectComponents">
                 <button class="btn btn-default btn-accordion" ng-click="setComponent(component)" ui-sref='AngularProtoypeEngine.main.project.components'>
                     {{component.title}}
@@ -17,7 +17,7 @@
             </div>
             <button class="btn btn-default btn-accordion" ng-click="setComponent('')" ui-sref='AngularProtoypeEngine.main.project.components'>New component</button>
         </accordion-group>
-        <accordion-group heading="Screens" ui-sref='AngularProtoypeEngine.main.project.screen'>
+        <accordion-group heading="Screens" ui-sref='AngularProtoypeEngine.main.project.screen' ng-click="setData(null); setComponent(null)">
             <div ng-repeat="screen in projectScreens">
                 <button class="btn btn-default btn-accordion" ng-click="setScreen(screen)" ui-sref='AngularProtoypeEngine.main.project.screen'>
                     {{screen.title}}
