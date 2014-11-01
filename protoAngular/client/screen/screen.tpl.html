@@ -6,21 +6,18 @@
         <strong>Error:</strong> {{errorMessage}}
     </div>
 
-    <div class="col-md-6">
-
+    <div class="col-md-12">
+        <!--<h1>{{selectedScreen.title}}</h1>-->
         <div class="form-group">
             <label for="screenTitle">Title</label>
-            <input type="text" name="screenTitle" class="form-control" ng-model="title">
+            <input type="text" name="screenTitle" class="form-control" ng-model="title" size="10">
         </div>
 
         <div class="form-group">
             <label for="screenHtml">Screen html</label>
             <textarea name="screenHtml" class="form-control" ng-model="HTMLcontent"></textarea>
         </div>
-        <!--<div class="form-group">-->
-        <!--    <label for="jsonFile">Json as file</label>-->
-        <!--    <input type="file" name="jsonFile" nv-file-select="" uploader="uploader" />-->
-        <!--</div>-->
+
         <div>
             <b>Data</b>
             <table class="table">
@@ -30,8 +27,12 @@
                 </tr>
                 <tr ng-repeat="data in ScreenData">
                     <td>{{data.file}}</td>
-                    <td><input type="text"></td>
-                    <td> <input type="checkbox"></td>
+                    <td>
+                        <input type="text">
+                    </td>
+                    <td>
+                        <input type="checkbox">
+                    </td>
                 </tr>
             </table>
             <button type="button" class="btn" disabled ng-click="addDummyData()">
@@ -44,37 +45,20 @@
             <input type="checkbox" ng-model="mainpage">
         </div>
         <div align="right">
-            <button type="button" class="btn" ng-click="addScreen()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
+            <button type="button" class="btn" ng-click="addScreen()" ng-disabled="item.isReady || item.isUploading || item.isSuccess" ng-show="newScreenSelected()">
                 <span class="glyphicon glyphicon-upload"></span> Save
+            </button>
+            <button type="button" class ="btn" ng-click="updateScreen()" ng-hide="selectedScreen==null || newScreenSelected()">
+                <span class="glyphicon glyphicon-upload"></span> Update
+            </button>
+
+            <button type="button" class= "btn" ng-click="removeScreen()" ng-hide="selectedScreen==null || newScreenSelected()">
+                <span class="glyphicon glyphicon-remove"></span> Remove
             </button>
             <button type="button" disabled class="btn" ng-click="viewPreview()" ng-displed="item.isReady || item.isUploading || item.isSuccess">
                 <span class="glyphicon glyphicon-new-window"></span> Preview
             </button>
         </div>
-<!--
-
-        <table class="table">
-            <tr>
-                <th>screen</th>
-                <th>action</th>
-            </tr>
-            <tr ng-repeat="data in uiScreen">
-                <td ng-click="show(data, true)">{{data.title}}
-                </td>
-                <td>
-                    <!--<button type="button" class"btn">-->
-                    <!--    <span class="glyphicon glyphicon-download"></span> Download-->
-                    <!--</button>--><!--
-                    <button type="button" class="btn" ng-click="updateScreen(data, false)">
-                        <span class="glyphicon glyphicon-edit"></span> Edit
-                    </button>
-                    <button type="button" class="btn" ng-click="removeScreen($index)">
-                        <span class="glyphicon glyphicon-remove"></span> Remove
-                    </button>
-                </td>
-            </tr>
-
-        </table>//-->
 
     </div>
 </div>

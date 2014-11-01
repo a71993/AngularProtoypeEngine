@@ -33,7 +33,7 @@ mongoose.connection.on('error', function() {
 
 
 /* KUSTUTA SIIT:::::::::::::::::::::::::::::::::::::::::
-var uig = new Schema({
+var uigComponent = new Schema({
  title: {
     type: String,
     required: true, 
@@ -44,7 +44,7 @@ var uig = new Schema({
 });
 
 
-var UigComponent = mongoose.model('Uig',uig);
+var UigComponent = mongoose.model('UigComponent',uigComponent);
 
 mongoose.connection.on('open', function() {
     
