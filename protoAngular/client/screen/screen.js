@@ -28,14 +28,25 @@ angular.module('AngularProtoypeEngine.main.project.screen', [])
       });
       
       $scope.uiScreen = uiScreen.uiScreen;
-     $scope.$parent.projectScreens=$scope.uiScreen;
+      $scope.$parent.projectScreens=$scope.uiScreen;
       
       $scope.errorMessage = '';
       $scope.isCollapsed=true;
       $scope.title = '';
       $scope.HTMLcontent = '';
       $scope.mainpage=false;
-
+        
+      $scope.$watch('selectedScreen',function(){
+          if($scope.selectedScreen!=null && $scope.selectedScreen!==''){
+              $scope.title=$scope.selectedScreen.title;
+              $scope.HTMLcontent=$scope.selectedScreen.HTMLcontent;
+              $scope.mainpage=$scope.selectedScreen.mainpage;
+          }else{
+              $scope.title='';
+              $scope.HTMLcontent='';
+              $scope.mainpage=false;
+          }
+      });    
 
       $scope.addScreen = function(){
         if(!checkField('title')) return;
@@ -43,17 +54,17 @@ angular.module('AngularProtoypeEngine.main.project.screen', [])
         if(!checkField('HTMLcontent')) return;
           /*In future DB check if main page alredy chosen*/
 
-        uiScreen.create({
+        $scope.$parent.selectedScreen=uiScreen.create({
           title: $scope.title,
           HTMLcontent: $scope.HTMLcontent,
           mainpage:$scope.mainpage
         });
         console.log($scope.mainpage);
-        $scope.title = '';
-        $scope.HTMLcontent = '';
+        //$scope.title = '';
+        //$scope.HTMLcontent = '';
         $scope.isCollapsed=true;
         $scope.errorMessage = '';
-        $scope.mainpage=false;
+        //$scope.mainpage=false;
       };
       
       var checkField = function(field) {
@@ -79,7 +90,7 @@ angular.module('AngularProtoypeEngine.main.project.screen', [])
           
       };*/
       
-      $scope.show = function(modalData, readOnly){
+      /*$scope.show = function(modalData, readOnly){
         var modalInstance = $modal.open({
             templateUrl: 'screen/screenModal.tpl.html',
             controller: 'screenModalController',
@@ -95,15 +106,27 @@ angular.module('AngularProtoypeEngine.main.project.screen', [])
         modalInstance.result.then(function (uiScreen) {
           console.log(uiScreen);
         });
+      };*/
+      
+      $scope.removeScreen = function() {
+         uiScreen.remove($scope.selectedScreen);
+         $scope.$parent.selectedScreen=null;
       };
       
-      $scope.removeScreen = function(index) {
-         uiScreen.remove(index);
-      };
-      
-      $scope.updateScreen = function(uiScreen, readOnly) {
-        $scope.show(uiScreen, readOnly);
+      $scope.updateScreen = function() {
+        $scope.$parent.selectedScreen.title=$scope.title;
+        $scope.$parent.selectedScreen.HTMLContent=$scope.HTMLcontent;
+        $scope.$parent.selectedScreen.mainpage=$scope.mainpage;
+        uiScreen.update($scope.selectedScreen);        
       }; 
+    
+      $scope.newScreenSelected=function(){
+          if($scope.selectedScreen !==null && $scope.selectedScreen===''){
+              return true;
+          }else{
+              return false;
+          }
+      }
 }])
 .factory('uiScreen',['$http', '$filter', function($http, $filter){
 
@@ -121,17 +144,16 @@ angular.module('AngularProtoypeEngine.main.project.screen', [])
       o.uiScreen.push(data);
     });
   };
-  o.remove = function(index) {
-    console.log("deleting " + o.uiScreen[index]._id);
-    return $http.delete('/uiScreen/'+ o.uiScreen[index]._id).success(function(resp){
-      o.uiScreen.splice(index,1);
+  o.remove = function(uiScreen) {
+    console.log("deleting ");
+    return $http.delete('/uiScreen/'+ uiScreen._id).success(function(resp){
+      o.uiScreen.splice(o.uiScreen.indexOf(uiScreen),1);
       console.log(resp.message);
     });
   };
-  o.update = function(index) {
-    console.log("editing " + o.uiScreen[index]._id);
-    return $http.put('/uiScreen/'+ o.uiScreen[index]._id).success(function(resp){
-      o.uiScreen.splice(index,1);
+  o.update = function(updatedUiScreen) {
+    console.log("editing "  );
+    return $http.put('/uiScreen/'+ updatedUiScreen._id,updatedUiScreen).success(function(resp){
       console.log(resp.message);
     });
   };

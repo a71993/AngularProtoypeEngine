@@ -1,6 +1,8 @@
-var appUig = angular.module('AngularProtoypeEngine.main.uig', ['AngularProtoypeEngine.main.uig.components']);
- // angular.module('AngularProtoypeEngine.main.uig', ['ui.router'])
-  appUig.config(['$stateProvider', function ($stateProvider) {
+(function(angular) {
+  "use strict";
+
+angular.module('AngularProtoypeEngine.main.uig', ['AngularProtoypeEngine.main.uig.components'])
+.config(['$stateProvider', function ($stateProvider) {
     $stateProvider
       .state('AngularProtoypeEngine.main.uig', {
         url: '/uig',
@@ -8,36 +10,26 @@ var appUig = angular.module('AngularProtoypeEngine.main.uig', ['AngularProtoypeE
         controller: 'UigController'
       });
   }])
-  appUig.controller('UigController', function ($scope, $state) {
+.controller('UigController', function ($scope) {
       $scope.oneAtATime = true;
 
       $scope.groups = [
-       {
-          title: 'Buttons',
+       {  title: 'Buttons',
           items: ['Button 1']
         },
-        {
-          title: 'Tables',
+        { title: 'Tables',
           items: ['Table 1']
         },
-        {
-          title: 'Tabs',
+        { title: 'Tabs',
           items: ['Tab 1', 'Tab 2']
         },
-        {
-          title: 'Inputs',
-          items: ['Input - Big', 'Input - Small']
-        },
-         {
-          title: 'Form',
+        { title: 'Form',
           items: ['Form ']
         },
-        {
-          title: 'Date',
+        { title: 'Date',
           items: ['Date']
         },
-        {
-          title: 'Menu',
+        { title: 'Menu',
           items: ['Dropdown ']
         }
       ];
@@ -45,18 +37,21 @@ var appUig = angular.module('AngularProtoypeEngine.main.uig', ['AngularProtoypeE
       $scope.status = {
         isFirstOpen: true
       };
-      
-      $scope.selcectedComponent = '';
-     // $scope.template = 'uig/uigComponents.tml.html';
-     /*
-      $scope.setComponent = function(comp) {
-      $scope.selectedComponent = comp;
-      console.log($scope.selectedComponent)
-        };
-      */
-      $scope.openComponent = function() {
-      $state.go('AngularProtoypeEngine.main.uig.components');
+
+   
+   
+   // $scope.proov = "nuppu valik";
+    $scope.uigComponents = [];
+    $scope.selectedUigComponent = null;
+   
+//see on funktsioon, millega tuvastab, millisele nupule vajutati (nagu project.js setComponent)
+  $scope.setUigComponent = function(comp) { 
+      $scope.selectedUigComponent = comp;
+      console.log($scope.selectedUigComponent);
     };
+
 
   });
 
+
+}(angular));

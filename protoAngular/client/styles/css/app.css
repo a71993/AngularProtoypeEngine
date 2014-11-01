@@ -28,3 +28,7 @@
 .btn-accordion{
     width: 90%;
 }
+textarea{
+    min-height: 300px;
+}
+

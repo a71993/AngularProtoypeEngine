@@ -46,19 +46,28 @@ angular.module('AngularProtoypeEngine.main.project.components', [])
           $scope.HTMLcontent='';
         }  
       });
+      
+      $scope.$watch('uiComponent', function() {
+          for(var i = $scope.uiComponent.length-1; i >= 0; i--){
+            if($scope.title === $scope.uiComponent[i].title){
+              $scope.$parent.selectedComponent = $scope.uiComponent[i];
+              break;
+            }
+        }
+      }, true);
 
       $scope.addComponent = function(){
         if(!checkField('title')) return;
         
         if(!checkField('HTMLcontent')) return;
 
-        $scope.$parent.selectedComponent= uiComponent.create({
+        uiComponent.create({
           title: $scope.title,
           HTMLcontent: $scope.HTMLcontent
         });
-        console.log($scope.selectedComponent);
         $scope.isCollapsed=true;
         $scope.errorMessage = '';
+        
       };
       
       var checkField = function(field) {

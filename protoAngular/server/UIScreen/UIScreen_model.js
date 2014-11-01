@@ -6,16 +6,15 @@ var UIScreenSchema = new mongoose.Schema({
   
   title: {
     type: String,
-    required: true
+    required: true,
+    unique:true
+   
   },
   HTMLcontent: {},
   mainpage:{
       type:Boolean,
       required:false
-  }/*screenData:{
-    type:
-
-  }*/
+  }
 
 });
 
