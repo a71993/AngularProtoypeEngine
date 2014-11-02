@@ -61,10 +61,10 @@ module.exports = exports = function (router) {
     });
 
     router.put('/:uiScreen', function (req, res, next) {
-        console.log('updating');
+        console.log('updating ');
         req.uiScreen.title = req.body.title;
-        req.uiScreen.content = req.body.content;
-        req.UIScreen.mainpage=req.body.mainpage;
+        req.uiScreen.HTMLcontent = req.body.HTMLcontent;
+        req.uiScreen.mainpage=req.body.mainpage;
         req.uiScreen.save(function (err, uiScreen) {
             if (err) {
                 return next(err);
