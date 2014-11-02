@@ -15,22 +15,22 @@ angular.module('AngularProtoypeEngine.main.uig', ['AngularProtoypeEngine.main.ui
 
       $scope.groups = [
        {  title: 'Buttons',
-          items: ['Button 1']
+          items: [{title:'Button 1', HTMLcontent: '<div class="btn-group">\n\t<label class="btn btn-primary" ng-model="radioModel" btn-radio="\'Left\'">\n\t\tLeft\n\t</label> \n\t<label class="btn btn-primary" ng-model="radioModel" btn-radio="\'Middle\'">\n\t\tMiddle\n\t</label> \n\t<label class="btn btn-primary" ng-model="radioModel" btn-radio="\'Right\'">\n\t\tRight\n\t</label>\n</div>'}]
         },
         { title: 'Tables',
-          items: ['Table 1']
+          items: [{title:'Table 1', HTMLcontent: ''}]
         },
         { title: 'Tabs',
-          items: ['Tab 1', 'Tab 2']
+          items: [{title:'Tab 1', HTMLcontent: ''}, {title:'Tab 2', HTMLcontent: ''}]
         },
         { title: 'Form',
-          items: ['Form ']
+          items: [{title:'Form ', HTMLcontent: ''}]
         },
         { title: 'Date',
-          items: ['Date']
+          items: [{title:'Date', HTMLcontent: ''}]
         },
         { title: 'Menu',
-          items: ['Dropdown ']
+          items: [{title:'Dropdown ', HTMLcontent: ''}]
         }
       ];
 
@@ -44,8 +44,7 @@ angular.module('AngularProtoypeEngine.main.uig', ['AngularProtoypeEngine.main.ui
     $scope.uigComponents = [];
     $scope.selectedUigComponent = null;
    
-//see on funktsioon, millega tuvastab, millisele nupule vajutati (nagu project.js setComponent)
-  $scope.setUigComponent = function(comp) { 
+    $scope.setUigComponent = function(comp) { 
       $scope.selectedUigComponent = comp;
       console.log($scope.selectedUigComponent);
     };

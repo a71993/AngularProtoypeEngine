@@ -7,7 +7,7 @@
 
     <accordion-group heading="{{group.title}}" ng-repeat="group in groups">
     <div ng-repeat="item in group.items">
-    <button class="btn btn-default btn-sm"ng-click="setUigComponent(item)" ui-sref='AngularProtoypeEngine.main.uig.components'> {{item}} </button>
+    <button class="btn btn-default btn-sm"ng-click="setUigComponent(item)" ui-sref='AngularProtoypeEngine.main.uig.components'> {{item.title}} </button>
     <p></p>
     </div>
     <button class="btn btn-sm buttonNew disabled"> New </button>
@@ -15,11 +15,11 @@
 
  
   </accordion>
-</div>
+
 	
-<div ui-view class="keskel"></div>
+  <div ui-view class="keskel"></div>
 
-
+</div>
 
 
 

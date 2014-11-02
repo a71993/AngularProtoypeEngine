@@ -30,12 +30,9 @@ angular.module('AngularProtoypeEngine.main.uig.components', ['ui.router'])
    
     
      $scope.$watch('selectedUigComponent', function() {  
-         //siin if- juurespeaks olema $parenti väärtus, mis on nüüd muutunud ja mille järgi
-         //saaks valida õige data (sama nagu comopnent.js selectComponent)
-         //probleem on selles, et väärtus on kogu aeg null
-        if($scope.$selectedUigComponent!=null){ 
-          $scope.title=$scope.selectedComponent.title;
-          $scope.HTMLcontent=$scope.selectedComponent.HTMLcontent;
+        if($scope.selectedUigComponent!=null){ 
+          $scope.title=$scope.selectedUigComponent.title;
+          $scope.HTMLcontent=$scope.selectedUigComponent.HTMLcontent;
         }  
       });     
 }])

@@ -115,7 +115,7 @@ angular.module('AngularProtoypeEngine.main.project.screen', [])
       
       $scope.updateScreen = function() {
         $scope.$parent.selectedScreen.title=$scope.title;
-        $scope.$parent.selectedScreen.HTMLContent=$scope.HTMLcontent;
+        $scope.$parent.selectedScreen.HTMLcontent=$scope.HTMLcontent;
         $scope.$parent.selectedScreen.mainpage=$scope.mainpage;
         uiScreen.update($scope.selectedScreen);        
       }; 
