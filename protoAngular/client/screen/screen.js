@@ -46,20 +46,22 @@ angular.module('AngularProtoypeEngine.main.project.screen', [])
               $scope.HTMLcontent='';
               $scope.mainpage=false;
           }
-      });    
+      }); 
+    
 
       $scope.addScreen = function(){
+          
+        checkMainpage();//Checking if mainpage alredy exist. 
         if(!checkField('title')) return;
         
-        if(!checkField('HTMLcontent')) return;
-          /*In future DB check if main page alredy chosen*/
-
+        if(!checkField('HTMLcontent')) return;  
+          
+        
         $scope.$parent.selectedScreen=uiScreen.create({
           title: $scope.title,
           HTMLcontent: $scope.HTMLcontent,
           mainpage:$scope.mainpage
         });
-        console.log($scope.mainpage);
         //$scope.title = '';
         //$scope.HTMLcontent = '';
         $scope.isCollapsed=true;
@@ -74,7 +76,26 @@ angular.module('AngularProtoypeEngine.main.project.screen', [])
           return false;
         }
         return true;
-      };/*
+      };
+    function checkMainpage(){
+          for(var i = $scope.uiScreen.length-1; i >= 0; i--){
+              if($scope.uiScreen[i].mainpage===true){
+                  
+                  var x=confirm("Mainpage alredy exists.\nMake this mainpage?");
+                  if(x===true){
+                    $scope.uiScreen[i].mainpage=false;
+                      uiScreen.update($scope.uiScreen[i]);
+                  }else{$scope.mainpage=false;}
+              }
+            console.log($scope.uiScreen[i]);
+        }
+        
+    };
+    
+    
+      
+    
+     /*
       $scope.addDummyData=function(modalData, readOnly){
           var modalInstance=$modal.open({
               templateUrl:'screen/screenDataModal.tpl.html',
@@ -90,33 +111,18 @@ angular.module('AngularProtoypeEngine.main.project.screen', [])
           
       };*/
       
-      /*$scope.show = function(modalData, readOnly){
-        var modalInstance = $modal.open({
-            templateUrl: 'screen/screenModal.tpl.html',
-            controller: 'screenModalController',
-            resolve: {
-              modalData: function () {
-                return modalData;
-              },
-              readOnly: function () {
-                return readOnly;
-              }
-            }
-        });
-        modalInstance.result.then(function (uiScreen) {
-          console.log(uiScreen);
-        });
-      };*/
-      
       $scope.removeScreen = function() {
+         var x=confirm("Are you sure you want to delete screen?");
+         if(x===true){
          uiScreen.remove($scope.selectedScreen);
-         $scope.$parent.selectedScreen=null;
+         $scope.$parent.selectedScreen=null;}
       };
-      
+       
       $scope.updateScreen = function() {
-        $scope.$parent.selectedScreen.title=$scope.title;
-        $scope.$parent.selectedScreen.HTMLContent=$scope.HTMLcontent;
-        $scope.$parent.selectedScreen.mainpage=$scope.mainpage;
+        console.log($scope.HTMLcontent);
+        $scope.selectedScreen.title=$scope.title;
+        $scope.selectedScreen.HTMLcontent=$scope.HTMLcontent;
+        $scope.selectedScreen.mainpage=$scope.mainpage;
         uiScreen.update($scope.selectedScreen);        
       }; 
     
@@ -152,7 +158,7 @@ angular.module('AngularProtoypeEngine.main.project.screen', [])
     });
   };
   o.update = function(updatedUiScreen) {
-    console.log("editing "  );
+    console.log("editing " );
     return $http.put('/uiScreen/'+ updatedUiScreen._id,updatedUiScreen).success(function(resp){
       console.log(resp.message);
     });

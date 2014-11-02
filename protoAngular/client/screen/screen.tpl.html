@@ -42,7 +42,7 @@
 
         <div class="form-group">
             <b>Main page:</b>
-            <input type="checkbox" ng-model="mainpage">
+            <input  name="mainpage" type="checkbox" ng-model="mainpage">
         </div>
         <div align="right">
             <button type="button" class="btn" ng-click="addScreen()" ng-disabled="item.isReady || item.isUploading || item.isSuccess" ng-show="newScreenSelected()">

@@ -60,18 +60,15 @@ module.exports = exports = function (router) {
         });
     });
 
-    router.put('/:uiScreen', function (req, res, next) {
-        console.log('updating');
-        req.uiScreen.title = req.body.title;
-        req.uiScreen.content = req.body.content;
-        req.UIScreen.mainpage=req.body.mainpage;
-        req.uiScreen.save(function (err, uiScreen) {
-            if (err) {
-                return next(err);
-            }
-            res.json({
-                message: 'Successfully updated'
-            });
-        });
+    router.put('/:uiScreen', function(req, res, next) {
+    console.log("Miks");    
+    console.log(req.body.mainpage);    
+    req.uiScreen.title = req.body.title;
+    req.uiScreen.content = req.body.content;
+    req.uiScreen.mainpage=req.body.mainpage;
+    req.uiScreen.save(function(err, uiScreen){
+      if(err){return next(err); }
+      res.json({ message: 'Successfully updated'});
     });
+  });
 };
