@@ -14,7 +14,7 @@ angular.module('AngularProtoypeEngine.main.project.jsonData', [])
       controller: 'jsonDataController'
     });
 }])
-.controller('jsonDataController', ['$scope', '$modal', 'FileUploader', 'jsonData', function ($scope, $modal, FileUploader, jsonData) {
+.controller('jsonDataController', ['$scope', '$modal', '$window','FileUploader', 'jsonData', function ($scope, $modal, $window, FileUploader, jsonData) {
       var uploader = $scope.uploader = new FileUploader({
         url: '/upload'
       });
@@ -36,11 +36,23 @@ angular.module('AngularProtoypeEngine.main.project.jsonData', [])
       $scope.content = '';
       
       $scope.$watch('selectedData', function() {
-        if($scope.selectedData != null){
+        if($scope.selectedData!=null && $scope.selectedData!==''){
           $scope.title=$scope.selectedData.title;
-        $scope.content=$scope.selectedData.content;
-        }
+          $scope.content=$scope.selectedData.content;
+        }else{
+          $scope.title='';
+          $scope.content='';
+        }  
       });
+      
+      $scope.$watch('jsonData', function() {
+          for(var i = $scope.jsonData.length-1; i >= 0; i--){
+            if($scope.title === $scope.jsonData[i].title){
+              $scope.$parent.selectedData = $scope.jsonData[i];
+              break;
+            }
+        }
+      }, true);
       
       $scope.addJsonData = function(){
         if(!checkField('title')) return;
@@ -92,14 +104,40 @@ angular.module('AngularProtoypeEngine.main.project.jsonData', [])
         });
       };
       
-      $scope.removeJsonData = function(index) {
-         jsonData.remove(index);
+      $scope.removeJsonData = function() {
+        jsonData.remove($scope.selectedData);
+        $scope.$parent.selectedData=null;
       };
       
-      $scope.updateJsonData = function(jsonData, readOnly) {
-        $scope.show(jsonData, readOnly);
-        // jsonData.update(index);
+      // $scope.removeJsonData = function(index) {
+      //   jsonData.remove(index);
+      // };
+      
+      $scope.updateJsonData = function() {
+        $scope.$parent.selectedData.title=$scope.title;
+        $scope.$parent.selectedData.content=$scope.content;
+        jsonData.update($scope.selectedData);
       }; 
+      
+        
+      // $scope.updateJsonData = function(jsonData, readOnly) {
+      //   $scope.show(jsonData, readOnly);
+      // }; 
+      
+      $scope.downloadJsonData = function(){
+        var blob = new Blob([ $scope.content ], { type : 'application/json' });
+        $scope.downloadUrl = (window.URL || window.webkitURL).createObjectURL( blob );
+        $window.location.href = $scope.downloadUrl;
+      };
+            
+      $scope.newJsonDataSelected = function() {
+        if($scope.selectedData !== null && $scope.selectedData === ''){
+          return true;
+        }else{
+          return false;
+        }
+      };
+      
 }])
 .factory('jsonData',['$http', '$filter', function($http, $filter){
   
@@ -127,6 +165,18 @@ angular.module('AngularProtoypeEngine.main.project.jsonData', [])
     console.log("editing " + o.jsonData[index]._id);
     return $http.put('/jsonData/'+ o.jsonData[index]._id, updatedJsonData).success(function(resp){
       o.jsonData.splice(index,1);
+      console.log(resp.message);
+    });
+  };
+    o.remove = function(jsonData) {
+    console.log("deleting " + jsonData._id);
+    return $http.delete('/jsonData/'+ jsonData._id).success(function(resp){
+      o.jsonData.splice(o.jsonData.indexOf(jsonData),1);
+      console.log(resp.message);
+    });
+  };
+  o.update = function(updatedJsonData) {
+    return $http.put('/jsonData/'+ updatedJsonData._id, updatedJsonData).success(function(resp){
       console.log(resp.message);
     });
   };
