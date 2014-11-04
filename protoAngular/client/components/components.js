@@ -114,7 +114,7 @@ angular.module('AngularProtoypeEngine.main.project.components', [])
         }else{
           return false;
         }
-      }
+      };
 }])
 .factory('uiComponent',['$http', '$filter', function($http, $filter){
   

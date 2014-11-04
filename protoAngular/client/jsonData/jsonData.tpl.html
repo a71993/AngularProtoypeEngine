@@ -21,32 +21,41 @@
         <!--    <label for="jsonFile">Json as file</label>-->
         <!--    <input type="file" name="jsonFile" nv-file-select="" uploader="uploader" />-->
         <!--</div>-->
-        <button type="button" class="btn" ng-click="addJsonData()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
-              <span class="glyphicon glyphicon-upload"></span> Upload
+        <button type="button" ng-click="updateJsonData()" ng-hide="selectedData==null || newJsonDataSelected()">
+            <span class="glyphicon glyphicon-edit"></span> Update
         </button>
-        
-        <table class="table">
-        <tr>
-            <th>json</th>
-            <th>action</th>
-        </tr>
-        <tr ng-repeat="data in jsonData">
-            <td ng-click="show(data, true)">{{data.title}}
-            </td>
-            <td>
+        <button type="button" ng-click="removeJsonData()" ng-hide="selectedData==null || newJsonDataSelected()">
+            <span class="glyphicon glyphicon-remove"></span> Remove
+        </button>
+        <button type="button" ng-click="downloadJsonData()" ng-hide="selectedData==null || newJsonDataSelected()">
+            <span class="glyphicon glyphicon-download"></span> Download
+        </button>
+        <button type="button" ng-click="addJsonData()" ng-show="newJsonDataSelected()">
+            <span class="glyphicon glyphicon-upload"></span> Save
+        </button>
+    
+        <!--<table class="table">-->
+        <!--<tr>-->
+        <!--    <th>json</th>-->
+        <!--    <th>action</th>-->
+        <!--</tr>-->
+        <!--<tr ng-repeat="data in jsonData">-->
+        <!--    <td ng-click="show(data, true)">{{data.title}}-->
+        <!--    </td>-->
+        <!--    <td>-->
             <!--<button type="button" class"btn">-->
             <!--    <span class="glyphicon glyphicon-download"></span> Download-->
             <!--</button>-->
-            <button type="button" class"btn" ng-click="updateJsonData(data, false)">
-                <span class="glyphicon glyphicon-edit"></span> Edit
-            </button>
-            <button type="button" class"btn" ng-click="removeJsonData($index)">
-                <span class="glyphicon glyphicon-remove"></span> Remove
-            </button>
-            </td>
-        </tr>    
+        <!--    <button type="button" class"btn" ng-click="updateJsonData(data, false)">-->
+        <!--        <span class="glyphicon glyphicon-edit"></span> Edit-->
+        <!--    </button>-->
+        <!--    <button type="button" class"btn" ng-click="removeJsonData($index)">-->
+        <!--        <span class="glyphicon glyphicon-remove"></span> Remove-->
+        <!--    </button>-->
+        <!--    </td>-->
+        <!--</tr>    -->
             
-        </table>
+        <!--</table>-->
 
     </div>
 </div>
