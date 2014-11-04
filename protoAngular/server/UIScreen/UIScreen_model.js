@@ -14,7 +14,11 @@ var UIScreenSchema = new mongoose.Schema({
   mainpage:{
       type:Boolean,
       required:false
-  }
+  },
+  Compo:{
+      type: Array,
+      required: false      
+  }    
 
 });
 

@@ -34,7 +34,6 @@ module.exports = exports = function (router) {
 
     router.post('/', function (req, res, next) {
         var uiScreen = new UIScreen(req.body);
-        console.log(uiScreen);
 
         uiScreen.save(function (err, uiScreen) {
             if (err) {
@@ -60,15 +59,21 @@ module.exports = exports = function (router) {
         });
     });
 
-    router.put('/:uiScreen', function(req, res, next) {
-    console.log("Miks");    
-    console.log(req.body.mainpage);    
-    req.uiScreen.title = req.body.title;
-    req.uiScreen.content = req.body.content;
-    req.uiScreen.mainpage=req.body.mainpage;
-    req.uiScreen.save(function(err, uiScreen){
-      if(err){return next(err); }
-      res.json({ message: 'Successfully updated'});
-    });
+
+    router.put('/:uiScreen', function (req, res, next) {
+        console.log('updating ');
+        console.log(req.body.Compo);
+        req.uiScreen.title = req.body.title;
+        req.uiScreen.HTMLcontent = req.body.HTMLcontent;
+        req.uiScreen.mainpage=req.body.mainpage;
+        req.uiScreen.components=req.body.Compo;
+        req.uiScreen.save(function (err, uiScreen) {
+            if (err) {
+                return next(err);
+            }
+            res.json({
+                message: 'Successfully updated'
+            });
+        });
   });
 };
