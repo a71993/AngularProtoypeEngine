@@ -11,7 +11,7 @@ mongoose.connect(process.env.DB_URL || 'mongodb://localhost/AngularProtoypeEngin
  * Include all your global env variables here.
 */
 module.exports = exports = function (app, express, routers) {
-  app.set('port', process.env.PORT || 15454);
+  app.set('port', process.env.PORT || 8080);
   app.set('base url', process.env.URL || 'http://localhost');
   app.use(morgan('dev'));
   app.use(bodyParser.json());
@@ -24,7 +24,6 @@ module.exports = exports = function (app, express, routers) {
   app.use('/uiComponent', routers.UIComponentRouter);
   app.use('/uigComponent', routers.UIGComponentRouter);
   app.use('/uiScreen', routers.UIScreenRouter);
-  
   app.use(middle.logError);
   app.use(middle.handleError);
 };
