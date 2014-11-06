@@ -16,7 +16,6 @@
     left: 25%;
     width: 55%;
     text-align: left;
-
 }
 
 .projectModuleContainer{
@@ -49,4 +48,11 @@ table[class="table1"] tr:nth-child(odd) {
 
 table[class="table1"] tr:nth-child(even) {
   background-color: #ffffff;
+}
+
+.previewContainer{
+    background:white;
+    float: left;
+    border: 1px solid #ddd;
+    border-radius: 4px;
 }

@@ -33,9 +33,16 @@
             <button type="button" class= "btn" ng-click="removeScreen()" ng-hide="selectedScreen==null || newScreenSelected()">
                 <span class="glyphicon glyphicon-remove"></span> Remove
             </button>
-            <button type="button" disabled class="btn" ng-click="viewPreview()" ng-displed="item.isReady || item.isUploading || item.isSuccess">
-                <span class="glyphicon glyphicon-new-window"></span> Preview
-            </button>
+            <!--<button type="button" disabled class="btn" ng-click="viewPreview()" ng-displed="item.isReady || item.isUploading || item.isSuccess">-->
+            <!--    <span class="glyphicon glyphicon-new-window"></span> Preview-->
+            <!--</button>-->
+        </div>
+        
+        <div class="form-group" ng-hide="selectedScreen==null || newScreenSelected()">
+            <label for="componentPreview">Preview</label></br>
+            <div name="componentPreview" class="previewContainer" ng-controller="componentMasterController">
+                <div preview="selectedScreen.HTMLcontent"></div>
+            </div>
         </div>
 
     </div>
