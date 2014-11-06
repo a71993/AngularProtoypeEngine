@@ -47,23 +47,21 @@ angular.module('AngularProtoypeEngine.main.project.screen', ['AngularProtoypeEng
             $scope.title = '';
             $scope.HTMLcontent = '';
             $scope.mainpage = false;
-            $scope.Compo=[];
 
             components = (uiScreen.getAllCom());
-
-            console.log(components[0].HTMLcontent);
-
+            console.log($scope.uiScreen);
+            
             $scope.$watch('selectedScreen', function () {
                 if ($scope.selectedScreen != null && $scope.selectedScreen !== '') {
+                    $scope.alerts=[];
                     $scope.title = $scope.selectedScreen.title;
                     $scope.HTMLcontent = $scope.selectedScreen.HTMLcontent;
                     $scope.mainpage = $scope.selectedScreen.mainpage;
-                    $scope.Compo=$scope.selectedScreen.Compo;
                 } else {
                     $scope.title = '';
                     $scope.HTMLcontent = '';
                     $scope.mainpage = false;
-                    $scope.Comp=[];
+                   
                 }
             });
             $scope.$watch('uiScreen', function () {
@@ -75,28 +73,43 @@ angular.module('AngularProtoypeEngine.main.project.screen', ['AngularProtoypeEng
                 }
             }, true);
 
-
+            console.log($scope.selectedScreen);
             $scope.closeAlert = function (index) {
                 $scope.alerts.splice(index, 1);
             };
             $scope.addScreen = function () {
-                $scope.components=includeComponent();
+                
                 
                 checkMainpage(); //Checking if mainpage alredy exist. 
                 if (!checkField('title')) return;
 
                 if (!checkField('HTMLcontent')) return;
+                includeComponent();
 
-
-                $scope.$parent.selectedScreen = uiScreen.create({
+               var a= $scope.$parent.selectedScreen = uiScreen.create({
                     title: $scope.title,
                     HTMLcontent: $scope.HTMLcontent,
                     mainpage: $scope.mainpage,
-                    Compo:$scope.Compo   
+                    //Compo:includeComponent()
+                    
                 });
+                if (a!=="") {
+                    $scope.alerts.push({
+                        type: 'danger',
+                        msg: 'Error: Failed to save screen!'
+                    });
+                    $scope.isCollapsed = false;
+                } else {
+                    $scope.alerts.push({
+                        type: 'success',
+                        msg: 'Successfully screen added!'
+                    });
+                    $scope.isCollapsed = false;
+                }
 
                 $scope.isCollapsed = true;
                 $scope.errorMessage = '';
+            
             };
             var checkField = function (field) {
                 if ($scope[field] === '') {
@@ -112,11 +125,12 @@ angular.module('AngularProtoypeEngine.main.project.screen', ['AngularProtoypeEng
 
             function checkMainpage() {
                 for (var i = $scope.uiScreen.length - 1; i >= 0; i--) {
-                    if ($scope.uiScreen[i].mainpage === true && $scope.mainpage == true) {
+                    if ($scope.uiScreen[i].mainpage === true && $scope.mainpage == true && $scope.title!==$scope.uiScreen[i].title) {
 
                         var x = confirm("Mainpage alredy exists.\nMake this mainpage?");
                         if (x === true) {
                             $scope.uiScreen[i].mainpage = false;
+                            //var s=$scope.uiScreen[i].Compo;
                             uiScreen.update($scope.uiScreen[i]);
                         } else {
                             $scope.mainpage = false;
@@ -134,19 +148,22 @@ angular.module('AngularProtoypeEngine.main.project.screen', ['AngularProtoypeEng
             };
 
             function includeComponent() {
-                var matches = [];
+                //var matches = [];
                 var i = 0;
                 while (i < components.length) {
                     for (i; components.length > i; i++) {
-                        var htmlcode = $scope.HTMLcontent;
-                        var findmatc = "include='" + components[i].title+"'";
-                        if (checkSubstring(htmlcode, findmatc) == true) {
-                            matches.push(components[i].title);
+                        console.log($scope.HTMLcontent);
+                        var findmatc = "<include='" + components[i].title+"'"+">";
+                        console.log(findmatc);
+                        if (checkSubstring($scope.HTMLcontent, findmatc) == true) {
+                            //replasing include with component html content
+                            $scope.HTMLcontent=$scope.HTMLcontent.replace(findmatc,components[i].HTMLcontent);
+                            //matches.push(components[i].title);
                         }
 
                     }
                 }
-                return matches;
+                //return matches;
             };
             $scope.removeScreen = function () {
                 var x = confirm("Are you sure you want to delete screen?");
@@ -159,16 +176,15 @@ angular.module('AngularProtoypeEngine.main.project.screen', ['AngularProtoypeEng
             $scope.updateScreen = function () {
                 $scope.alerts = [];
                 checkMainpage();
-                $scope.$parent.selectedScreen.components=[];                
+                includeComponent();
                 $scope.$parent.selectedScreen.title = $scope.title;
                 $scope.$parent.selectedScreen.HTMLcontent = $scope.HTMLcontent;
                 $scope.$parent.selectedScreen.mainpage = $scope.mainpage;
-                $scope.$parent.selectedScreen.Compo=includeComponent();
+                
                 //
-
-                var a = uiScreen.update($scope.selectedScreen);
-                console.log(a.error);
-                if (a) {
+                var msg = uiScreen.update($scope.selectedScreen);
+                console.log(msg.success.response);
+                if (msg.message="p") {
                     $scope.alerts.push({
                         type: 'success',
                         msg: 'Successfully updated!'
@@ -177,7 +193,7 @@ angular.module('AngularProtoypeEngine.main.project.screen', ['AngularProtoypeEng
                 } else {
                     $scope.alerts.push({
                         type: 'danger',
-                        msg: 'Unseccessful updated!'
+                        msg: 'Unseccessfully updated!'
                     });
                     $scope.isCollapsed = false;
                 }
