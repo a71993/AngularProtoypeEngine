@@ -17,7 +17,6 @@
     left: 25%;
     width: 55%;
     text-align: left;
-
 }
 
 .projectModuleContainer{
@@ -32,3 +31,9 @@ textarea{
     min-height: 300px;
 }
 
+.previewContainer{
+    background:white;
+    float: left;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}

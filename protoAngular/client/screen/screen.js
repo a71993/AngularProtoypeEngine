@@ -125,7 +125,7 @@ angular.module('AngularProtoypeEngine.main.project.screen', ['AngularProtoypeEng
 
             function checkMainpage() {
                 for (var i = $scope.uiScreen.length - 1; i >= 0; i--) {
-                    if ($scope.uiScreen[i].mainpage === true && $scope.mainpage == true && $scope.title!==$scope.uiScreen[i].title) {
+                    if ($scope.uiScreen[i].mainpage === true && $scope.mainpage === true && $scope.title!==$scope.uiScreen[i].title) {
 
                         var x = confirm("Mainpage alredy exists.\nMake this mainpage?");
                         if (x === true) {
