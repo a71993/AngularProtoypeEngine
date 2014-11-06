@@ -50,7 +50,8 @@ module.exports = exports = function (router) {
   
   router.put('/:uiComponent', function(req, res, next) {
     req.uiComponent.title = req.body.title;
-    req.uiComponent.content = req.body.content;
+    req.uiComponent.HTMLcontent = req.body.HTMLcontent;
+    req.uiComponent.data = req.body.data;
     req.uiComponent.save(function(err, uiComponent){
       if(err){return next(err); }
       res.json({ message: 'Successfully updated'});

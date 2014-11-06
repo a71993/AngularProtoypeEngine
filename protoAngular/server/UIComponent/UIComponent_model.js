@@ -9,7 +9,8 @@ var UIComponentSchema = new mongoose.Schema({
     required: true,
     unique: true
   },
-  HTMLcontent: {}
+  HTMLcontent: {},
+  data: []
 });
 
 module.exports = exports = mongoose.model('uiComponent', UIComponentSchema);

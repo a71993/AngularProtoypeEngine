@@ -3,7 +3,6 @@
   
 .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
 
-
 .korvalMenuu{
     position: absolute;
     left: 0px;
@@ -28,7 +27,26 @@
 .btn-accordion{
     width: 90%;
 }
+
 textarea{
     min-height: 300px;
+    width: 90%;
 }
 
+.table1 {
+    width: 100%;
+}
+
+.tableTd {
+    border: 1px solid #ddd;
+    text-align: center;
+    vertical-align: middle;
+}
+
+table[class="table1"] tr:nth-child(odd) {
+  background-color: #f1f1f1;
+}
+
+table[class="table1"] tr:nth-child(even) {
+  background-color: #ffffff;
+}

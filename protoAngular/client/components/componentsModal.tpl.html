@@ -1,11 +1,25 @@
 
 <div class="modal-header">
     <h3 class="modal-title">
-      <input type="text" ng-model="title" ng-readonly={{readOnly}} />
+      Select data for component:
     </h3>
+    <div class="alert alert-danger" role="alert" collapse="isCollapsed">
+        <strong>Error:</strong> {{errorMessage}}
+    </div>
 </div>
 <div class="modal-body">
-  <textarea rows="15" cols="60" ng-model="HTMLcontent" ng-readonly={{readOnly}}></textarea>
+  <table class="table1">
+    <tr>
+      <td class="tableTd">JsonData</td>
+      <td class="tableTd">Name</td>
+      <td class="tableTd">Status</td>
+    </tr>
+    <tr ng-repeat="element in expandidData">
+      <td class="tableTd">{{element.title}}</td>
+      <td class="tableTd"><input type="text" name="jsonName" class="form-control" ng-model="element.name"></td>
+      <td class="tableTd"><input type="checkbox" name="jsonSelection" ng-model="element.selected"></td>
+    </tr>
+  </table>
 </div>
 <div class="modal-footer">
     <button class="btn btn-primary" ng-click="ok()">OK</button>

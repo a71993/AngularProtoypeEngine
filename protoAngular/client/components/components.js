@@ -1,5 +1,5 @@
 
-angular.module('AngularProtoypeEngine.main.project.components', [])
+angular.module('AngularProtoypeEngine.main.project.components', ['AngularProtoypeEngine.main.project.jsonData'])
 .config(['$stateProvider', function ($stateProvider) {
 
   $stateProvider
@@ -9,12 +9,15 @@ angular.module('AngularProtoypeEngine.main.project.components', [])
       resolve: {
         uiComponentPromise: ['uiComponent', function(uiComponent){
         return uiComponent.getAll();
+        }],
+        uiComponentJsonDataPromise: ['jsonData', function(jsonData){
+        return jsonData.getAll();
         }]
       },
       controller: 'componentsController'
     });
 }])
-.controller('componentsController', ['$scope', '$modal', 'FileUploader', 'uiComponent', function ($scope, $modal, FileUploader, uiComponent) {
+.controller('componentsController', ['$scope', '$modal', 'FileUploader', 'uiComponent', 'jsonData', function ($scope, $modal, FileUploader, uiComponent, jsonData) {
 
 
       var uploader = $scope.uploader = new FileUploader({
@@ -31,19 +34,23 @@ angular.module('AngularProtoypeEngine.main.project.components', [])
       
       $scope.uiComponent = uiComponent.uiComponent;
       $scope.$parent.projectComponents = $scope.uiComponent;
+      $scope.jsonData = jsonData.jsonData;
       
       $scope.errorMessage = '';
       $scope.isCollapsed=true;
       $scope.title = '';
       $scope.HTMLcontent = '';
+      $scope.selectedJsonData = '';
       
       $scope.$watch('selectedComponent', function() {
-        if($scope.selectedComponent!=null && $scope.selectedComponent!==''){
-          $scope.title=$scope.selectedComponent.title;
-          $scope.HTMLcontent=$scope.selectedComponent.HTMLcontent;
+        if($scope.selectedComponent != null && $scope.selectedComponent!==''){
+          $scope.title = $scope.selectedComponent.title;
+          $scope.HTMLcontent = $scope.selectedComponent.HTMLcontent;
+          $scope.selectedJsonData = $scope.selectedComponent.data;
         }else{
-          $scope.title='';
-          $scope.HTMLcontent='';
+          $scope.title = '';
+          $scope.HTMLcontent = '';
+          $scope.selectedJsonData = '';
         }  
       });
       
@@ -63,7 +70,8 @@ angular.module('AngularProtoypeEngine.main.project.components', [])
 
         uiComponent.create({
           title: $scope.title,
-          HTMLcontent: $scope.HTMLcontent
+          HTMLcontent: $scope.HTMLcontent,
+          data: $scope.selectedJsonData
         });
         $scope.isCollapsed=true;
         $scope.errorMessage = '';
@@ -79,21 +87,25 @@ angular.module('AngularProtoypeEngine.main.project.components', [])
         return true;
       };
       
-      $scope.show = function(modalData, readOnly){
+      $scope.show = function(expandidData){
         var modalInstance = $modal.open({
             templateUrl: 'components/componentsModal.tpl.html',
             controller: 'componentsModalController',
             resolve: {
-              modalData: function () {
-                return modalData;
+              expandidData: function () {
+                return expandidData;
               },
-              readOnly: function () {
-                return readOnly;
+              selectedComponent: function () {
+                return $scope.selectedComponent;
+              },
+              selectedJsonData: function () {
+                return $scope.selectedJsonData;
               }
             }
+            
         });
-        modalInstance.result.then(function (uiComponent) {
-          console.log(uiComponent);
+        modalInstance.result.then(function (result) {
+          $scope.selectedJsonData = result;
         });
       };
       
@@ -103,10 +115,27 @@ angular.module('AngularProtoypeEngine.main.project.components', [])
       };
       
       $scope.updateComponent = function() {
-        $scope.$parent.selectedComponent.title=$scope.title;
-        $scope.$parent.selectedComponent.HTMLcontent=$scope.HTMLcontent;
+        $scope.$parent.selectedComponent.title = $scope.title;
+        $scope.$parent.selectedComponent.HTMLcontent = $scope.HTMLcontent;
+        $scope.$parent.selectedComponent.data = $scope.selectedJsonData;
         uiComponent.update($scope.selectedComponent);
       }; 
+      
+      $scope.getJsonDataModal = function() {
+        var expandidData = [];
+        var tmpSelectedJsonDataMap = {};
+        for (var i = 0; i < $scope.selectedJsonData.length; i++){
+          tmpSelectedJsonDataMap[$scope.selectedJsonData[i].jsonId] = $scope.selectedJsonData[i].name;
+        }
+        for(var i = 0; i < $scope.jsonData.length; i++){
+          if($scope.jsonData[i]._id in tmpSelectedJsonDataMap){
+            expandidData.push({jsonId: $scope.jsonData[i]._id, title: $scope.jsonData[i].title + '.json', name: tmpSelectedJsonDataMap[$scope.jsonData[i]._id], selected: true});
+          }else{
+            expandidData.push({jsonId: $scope.jsonData[i]._id, title: $scope.jsonData[i].title + '.json', name: '', selected: false});
+          }
+        }
+        $scope.show(expandidData);
+      };
       
       $scope.newComponentSelected = function() {
         if($scope.selectedComponent !== null && $scope.selectedComponent === ''){
@@ -114,6 +143,15 @@ angular.module('AngularProtoypeEngine.main.project.components', [])
         }else{
           return false;
         }
+      }
+      
+      $scope.getJsonTitle = function(id) {
+        for(var i = 0; i < $scope.jsonData.length; i++){
+          if(id == $scope.jsonData[i]._id){
+            return $scope.jsonData[i].title;
+          }
+        }
+        return '';
       }
 }])
 .factory('uiComponent',['$http', '$filter', function($http, $filter){
@@ -143,22 +181,33 @@ angular.module('AngularProtoypeEngine.main.project.components', [])
       console.log(resp.message);
     });
   };
+  
   return o;
 }]);
 
 angular.module('AngularProtoypeEngine.main.project.components')
-.controller('componentsModalController', ['$scope', '$modalInstance', 'uiComponent', 'modalData', 'readOnly', function ($scope, $modalInstance, uiComponent, modalData, readOnly) {
+.controller('componentsModalController', ['$scope', '$modalInstance', 'expandidData','uiComponent', 'selectedComponent', 'selectedJsonData', function ($scope, $modalInstance , expandidData, uiComponent,  selectedComponent, selectedJsonData) {
 
-  $scope.title = modalData.title;
-  $scope.HTMLcontent = modalData.HTMLcontent;
-  $scope.readOnly = readOnly;
-  $scope.index = uiComponent.uiComponent.indexOf(modalData);
-
+  $scope.isCollapsed=true;
+  $scope.expandidData=expandidData;
+  $scope.errorMessage='';
+  
   $scope.ok = function () {
-    uiComponent.uiComponent[$scope.index].title = $scope.title;
-    uiComponent.uiComponent[$scope.index].HTMLcontent = $scope.HTMLcontent;
-    uiComponent.update($scope.index);
-    $modalInstance.close(uiComponent.uiComponent[$scope.index]);
+    $scope.isCollapsed = false;
+    var data = [];
+    for(var i = 0; i < expandidData.length; i++){
+      if(expandidData[i].selected === true){
+        if(expandidData[i].name == ''){
+          $scope.errorMessage = 'Selected jsonData must have name. Unselect jsonData or insert name for it.'
+          $scope.isCollapsed = false;
+          return;
+        }
+        data.push({jsonId: expandidData[i].jsonId, name: expandidData[i].name});
+      }
+    }
+    selectedComponent.data=data;
+    $modalInstance.close(data);
   };
 
 }]);
+ 
