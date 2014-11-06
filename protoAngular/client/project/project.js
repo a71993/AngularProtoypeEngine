@@ -26,15 +26,12 @@ angular.module('AngularProtoypeEngine.main.project', ['AngularProtoypeEngine.mai
     
     $scope.setData = function(data) {
       $scope.selectedData = data;
-      console.log($scope.selectedData);
     };
     $scope.setComponent = function(comp) {
       $scope.selectedComponent = comp;
-      console.log($scope.selectedComponent);
     };
     $scope.setScreen = function(screen) {
       $scope.selectedScreen = screen;
-      console.log($scope.selectedScreen);
     };
 
 });

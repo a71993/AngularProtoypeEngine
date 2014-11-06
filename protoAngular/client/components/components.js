@@ -143,7 +143,7 @@ angular.module('AngularProtoypeEngine.main.project.components', ['AngularProtoyp
         }else{
           return false;
         }
-      }
+      };
       
       $scope.getJsonTitle = function(id) {
         for(var i = 0; i < $scope.jsonData.length; i++){
@@ -152,7 +152,7 @@ angular.module('AngularProtoypeEngine.main.project.components', ['AngularProtoyp
           }
         }
         return '';
-      }
+      };
 }])
 .factory('uiComponent',['$http', '$filter', function($http, $filter){
   
