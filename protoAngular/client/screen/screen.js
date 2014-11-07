@@ -49,7 +49,7 @@ angular.module('AngularProtoypeEngine.main.project.screen', ['AngularProtoypeEng
             $scope.mainpage = false;
 
             components = (uiScreen.getAllCom());
-            console.log($scope.uiScreen);
+            // console.log($scope.uiScreen);
             
             $scope.$watch('selectedScreen', function () {
                 if ($scope.selectedScreen != null && $scope.selectedScreen !== '') {
@@ -73,7 +73,7 @@ angular.module('AngularProtoypeEngine.main.project.screen', ['AngularProtoypeEng
                 }
             }, true);
 
-            console.log($scope.selectedScreen);
+            // console.log($scope.selectedScreen);
             $scope.closeAlert = function (index) {
                 $scope.alerts.splice(index, 1);
             };
@@ -152,9 +152,9 @@ angular.module('AngularProtoypeEngine.main.project.screen', ['AngularProtoypeEng
                 var i = 0;
                 while (i < components.length) {
                     for (i; components.length > i; i++) {
-                        console.log($scope.HTMLcontent);
+                        // console.log($scope.HTMLcontent);
                         var findmatc = "<include='" + components[i].title+"'"+">";
-                        console.log(findmatc);
+                        // console.log(findmatc);
                         if (checkSubstring($scope.HTMLcontent, findmatc) == true) {
                             //replasing include with component html content
                             $scope.HTMLcontent=$scope.HTMLcontent.replace(findmatc,components[i].HTMLcontent);
@@ -243,4 +243,68 @@ angular.module('AngularProtoypeEngine.main.project.screen', ['AngularProtoypeEng
                 });
             };
             return o;
-}]);
+}])
+  .controller('screenMasterController', ['$scope',  '$filter', 'ngTableParams', function ($scope,  $filter, ngTableParams) {
+      
+    var data = [{name: 'Airi Satou', position:'Accountant', office:'Tokyo'},
+      {name: 'Angelica Ramos', position:'Chief Executive Officer (CEO)', office:'London'},
+      {name: 'Ashton Cox', position:'Junior Technical Author', office:'San Francisco'},
+      {name: 'Bradley Greer', position:'Software Engineer', office:'San Francisco'},
+      {name: 'Gavin Cortez', position:'Support Engineer', office:'London'},
+      {name: 'Hermione Butler', position:'Regional Director', office:'London'},
+      {name: 'Airi Satou', position:'Accountant', office:'Tokyo'},
+      {name: 'Angelica Ramos', position:'Chief Executive Officer (CEO)', office:'London'},
+      {name: 'Ashton Cox', position:'Junior Technical Author', office:'San Francisco'},
+      {name: 'Bradley Greer', position:'Software Engineer', office:'San Francisco'},
+      {name: 'Gavin Cortez', position:'Support Engineer', office:'London'},
+      {name: 'Hermione Butler', position:'Regional Director', office:'London'},
+      {name: 'Airi Satou', position:'Accountant', office:'Tokyo'},
+      {name: 'Angelica Ramos', position:'Chief Executive Officer (CEO)', office:'London'},
+      {name: 'Ashton Cox', position:'Junior Technical Author', office:'San Francisco'},
+      {name: 'Bradley Greer', position:'Software Engineer', office:'San Francisco'},
+      {name: 'Gavin Cortez', position:'Support Engineer', office:'London'},
+      {name: 'Hermione Butler', position:'Regional Director', office:'London'}                 
+      ]; 
+    
+    $scope.tableParams = new ngTableParams({        
+        page: 1,            
+        count: 10,          
+        sorting: {        
+          name: 'asc'       
+        }    
+      }, 
+      {        
+        total: data.length,       
+        getData: function($defer, params) {            
+          var orderedData = params.sorting() ? $filter('orderBy')(data, params.orderBy()) : data;            
+          $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));       
+      }    
+      
+    });
+    
+    weekStart: 0;
+    $scope.today = function() {
+      $scope.dt = new Date();
+    };
+    $scope.today();
+    $scope.clear = function () {
+      $scope.dt = null;
+    };
+    $scope.open = function($event) {
+      //$event.preventDefault();
+      $event.stopPropagation(); 
+      $scope.opened = true;
+    };
+    $scope.dateOptions = {
+      formatYear: 'yy',
+      startingDay: 1
+    };
+    $scope.format = 'dd-MMMM-yyyy';
+    
+    $scope.status = {
+      isopen: false
+    };
+    $scope.toggleDropdown = function($event) {
+      $scope.status.isopen = !$scope.status.isopen;
+    };
+  }]);

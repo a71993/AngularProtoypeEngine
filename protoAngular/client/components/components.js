@@ -47,6 +47,7 @@ angular.module('AngularProtoypeEngine.main.project.components', ['AngularProtoyp
           $scope.title = $scope.selectedComponent.title;
           $scope.HTMLcontent = $scope.selectedComponent.HTMLcontent;
           $scope.selectedJsonData = $scope.selectedComponent.data;
+          updateDataNames();
         }else{
           $scope.title = '';
           $scope.HTMLcontent = '';
@@ -62,6 +63,17 @@ angular.module('AngularProtoypeEngine.main.project.components', ['AngularProtoyp
             }
         }
       }, true);
+      
+      var updateDataNames = function(){
+        for(var i = 0; i < $scope.selectedJsonData.length; i++){
+          var selectedData = $scope.selectedJsonData[i];
+          if(selectedData){
+            console.log(selectedData.name);
+            $scope[selectedData.name] = $scope.getJsonContent(selectedData.jsonId);
+            console.log($scope[selectedData.name]);
+          }
+        } 
+      };
 
       $scope.addComponent = function(){
         if(!checkField('title')) return;
@@ -153,7 +165,17 @@ angular.module('AngularProtoypeEngine.main.project.components', ['AngularProtoyp
         }
         return '';
       };
+      
+      $scope.getJsonContent = function(id) {
+        for(var i = 0; i < $scope.jsonData.length; i++){
+          if(id == $scope.jsonData[i]._id){
+            return angular.fromJson($scope.jsonData[i].content);
+          }
+        }
+        return '';
+      };
 }])
+
 .factory('uiComponent',['$http', '$filter', function($http, $filter){
   
   var o = {
@@ -186,7 +208,8 @@ angular.module('AngularProtoypeEngine.main.project.components', ['AngularProtoyp
 }]);
 
 angular.module('AngularProtoypeEngine.main.project.components')
-.controller('componentsModalController', ['$scope', '$modalInstance', 'expandidData','uiComponent', 'selectedComponent', 'selectedJsonData', function ($scope, $modalInstance , expandidData, uiComponent,  selectedComponent, selectedJsonData) {
+.controller('componentsModalController', ['$scope', '$modalInstance', 'expandidData','uiComponent', 'selectedComponent', 'selectedJsonData',
+function ($scope, $modalInstance , expandidData, uiComponent,  selectedComponent, selectedJsonData) {
 
   $scope.isCollapsed=true;
   $scope.expandidData=expandidData;
@@ -198,7 +221,7 @@ angular.module('AngularProtoypeEngine.main.project.components')
     for(var i = 0; i < expandidData.length; i++){
       if(expandidData[i].selected === true){
         if(expandidData[i].name == ''){
-          $scope.errorMessage = 'Selected jsonData must have name. Unselect jsonData or insert name for it.'
+          $scope.errorMessage = 'Selected jsonData must have name. Unselect jsonData or insert name for it.';
           $scope.isCollapsed = false;
           return;
         }
@@ -209,5 +232,56 @@ angular.module('AngularProtoypeEngine.main.project.components')
     $modalInstance.close(data);
   };
 
-}]);
+}])
+  .controller('componentMasterController', ['$scope',  '$filter', 'ngTableParams', function ($scope,  $filter, ngTableParams) {
+    
+    var data = [{name: 'Airi Satou', position:'Accountant', office:'Tokyo'},
+      {name: 'Angelica Ramos', position:'Chief Executive Officer (CEO)', office:'London'},
+      {name: 'Ashton Cox', position:'Junior Technical Author', office:'San Francisco'},
+      {name: 'Bradley Greer', position:'Software Engineer', office:'San Francisco'}
+      ]; 
+      
+    $scope.tableParams = new ngTableParams({        
+        page: 1,            
+        count: 10,          
+        sorting: {        
+          name: 'asc'       
+        }    
+      }, 
+      {        
+        total: data.length,       
+        getData: function($defer, params) {            
+          var orderedData = params.sorting() ? $filter('orderBy')(data, params.orderBy()) : data;            
+          $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));       
+      }    
+      
+    });
+    
+      
+    weekStart: 0;
+    $scope.today = function() {
+      $scope.dt = new Date();
+    };
+    $scope.today();
+    $scope.clear = function () {
+      $scope.dt = null;
+    };
+    $scope.open = function($event) {
+      //$event.preventDefault();
+      $event.stopPropagation(); 
+      $scope.opened = true;
+    };
+    $scope.dateOptions = {
+      formatYear: 'yy',
+      startingDay: 1
+    };
+    $scope.format = 'dd-MMMM-yyyy';
+    
+    $scope.status = {
+      isopen: false
+    };
+    $scope.toggleDropdown = function($event) {
+      $scope.status.isopen = !$scope.status.isopen;
+    };
+  }]);
  

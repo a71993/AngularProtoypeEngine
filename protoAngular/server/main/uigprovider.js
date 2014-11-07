@@ -54,7 +54,7 @@ mongoose.connection.on('open', function() {
     });
     uigcomponents.push({
       title : "DatePicker",
-      HTMLcontent : "<div ng-controller=\"DatepickerDemoCtrl\"> \n\t <h4>Date</h4> \n\t <div class=\"row\"> \n\t <div class=\"col-md-6\"> \n\t<p class=\"input-group\"> \n\t<input type=\"text\" class=\"form-control\" datepicker-popup=\"{{format}}\" ng-model=\"dt\" is-open=\"opened\" max-date=\"'2015-06-22'\" datepicker-options=\"dateOptions\"  ng-required=\"true\" close-text=\"Close\" /> \n\t <span class=\"input-group-btn\"> \n\t<button type=\"button\" class=\"btn btn-default\" ng-click=\"open($event)\">\n\t\t<i class=\"glyphicon glyphicon-calendar\">\n\t</i>\n     </button>\n </span>\n </p> \n </div>\n</div> ",
+      HTMLcontent : "<div> \n\t <h4>Date</h4> \n\t <div class=\"row\"> \n\t <div class=\"col-md-6\"> \n\t<p class=\"input-group\"> \n\t<input type=\"text\" class=\"form-control\" datepicker-popup=\"{{format}}\" ng-model=\"dt\" is-open=\"opened\" max-date=\"'2015-06-22'\" datepicker-options=\"dateOptions\"  ng-required=\"true\" close-text=\"Close\" /> \n\t <span class=\"input-group-btn\"> \n\t<button type=\"button\" class=\"btn btn-default\" ng-click=\"open($event)\">\n\t\t<i class=\"glyphicon glyphicon-calendar\">\n\t</i>\n     </button>\n </span>\n </p> \n </div>\n</div> ",
       controller : "angular.module('ui.bootstrap.demo', ['ui.bootstrap']); angular.module('ui.bootstrap.demo').controller('DatepickerDemoCtrl', function ($scope) {  weekStart: 0;   $scope.today = function() {  $scope.dt = new Date();  };  $scope.today();  $scope.clear = function () {     $scope.dt = null;   };   $scope.open = function($event) {     //$event.preventDefault();  $event.stopPropagation(); $scope.opened = true;   };    $scope.dateOptions = {    formatYear: 'yy',  startingDay: 1  };   $scope.format = 'dd-MMMM-yyyy'  });"
     });
     uigcomponents.push({
@@ -69,12 +69,12 @@ mongoose.connection.on('open', function() {
     });
     uigcomponents.push({
      title : "Tab 1",
-     HTMLcontent : "<div ng-controller=\"TabsDemoCtrl\"> \n\t <tabset> \n\t <tab ng-repeat=\"tab in tabs\" heading=\"{{tab.title}}\" active=\"tab.active\">  \n\t    {{tab.content}}  \n  </tab> \n </tabset>\n</div>",
+     HTMLcontent : "<div> \n\t <tabset> \n\t <tab ng-repeat=\"tab in tabs\" heading=\"{{tab.title}}\" active=\"tab.active\">  \n\t    {{tab.content}}  \n  </tab> \n </tabset>\n</div>",
     controller : "angular.module('ui.bootstrap.demo', ['ui.bootstrap']); angular.module('ui.bootstrap.demo').controller('TabsDemoCtrl', function ($scope) {  $scope.tabs = [    { title:' Title 1', content:'Sample content 1' },    { title:' Title 2', content:'Sample content 2' },    { title:' Title 3', content:'Sample content 3' },    { title:' Title 4', content:'Sample content 4' }  ];});"
     });
     uigcomponents.push({
       title : "Tab 2",
-      HTMLcontent : "<div ng-controller=\"TabsDemoCtrl\"> \n\t <tabset type=\"pills\">       \n\t <tab ng-repeat=\"tab in tabs\" heading=\"{{tab.title}}\" active=\"tab.active\">   \n\t     {{tab.content}} \n </tab>  \n</tabset>",
+      HTMLcontent : "<div> \n\t <tabset type=\"pills\">       \n\t <tab ng-repeat=\"tab in tabs\" heading=\"{{tab.title}}\" active=\"tab.active\">   \n\t     {{tab.content}} \n </tab>  \n</tabset>",
     controller : "angular.module('ui.bootstrap.demo', ['ui.bootstrap']); angular.module('ui.bootstrap.demo').controller('TabsDemoCtrl', function ($scope) {  $scope.tabs = [    { title:' Title 1', content:'Sample content 1' },    { title:' Title 2', content:'Sample content 2' },    { title:' Title 3', content:'Sample content 3' },    { title:' Title 4', content:'Sample content 4' }  ];});"
     });
     uigcomponents.push({
