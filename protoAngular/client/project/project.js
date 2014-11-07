@@ -35,63 +35,6 @@ angular.module('AngularProtoypeEngine.main.project', ['AngularProtoypeEngine.mai
       $scope.selectedScreen = screen;
     };
 
-  })
-  // .controller('componentMasterController', ['$scope',  '$filter', 'ngTableParams', function ($scope,  $filter, ngTableParams) {
-    
-  //   var data = [{name: 'Airi Satou', position:'Accountant', office:'Tokyo'},
-  //     {name: 'Angelica Ramos', position:'Chief Executive Officer (CEO)', office:'London'},
-  //     {name: 'Ashton Cox', position:'Junior Technical Author', office:'San Francisco'},
-  //     {name: 'Bradley Greer', position:'Software Engineer', office:'San Francisco'},
-  //     {name: 'Gavin Cortez', position:'Support Engineer', office:'London'},
-  //     {name: 'Hermione Butler', position:'Regional Director', office:'London'},
-  //     {name: 'Airi Satou', position:'Accountant', office:'Tokyo'},
-  //     {name: 'Angelica Ramos', position:'Chief Executive Officer (CEO)', office:'London'},
-  //     {name: 'Ashton Cox', position:'Junior Technical Author', office:'San Francisco'}
-  //     ]; 
-      
-  //   $scope.tableParams = new ngTableParams({        
-  //       page: 1,            
-  //       count: 10,          
-  //       sorting: {        
-  //         name: 'asc'       
-  //       }    
-  //     }, 
-  //     {        
-  //       total: data.length,       
-  //       getData: function($defer, params) {            
-  //         var orderedData = params.sorting() ? $filter('orderBy')(data, params.orderBy()) : data;            
-  //         $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));       
-  //     }    
-      
-  //   });
-    
-      
-  //   weekStart: 0;
-  //   $scope.today = function() {
-  //     $scope.dt = new Date();
-  //   };
-  //   $scope.today();
-  //   $scope.clear = function () {
-  //     $scope.dt = null;
-  //   };
-  //   $scope.open = function($event) {
-  //     //$event.preventDefault();
-  //     $event.stopPropagation(); 
-  //     $scope.opened = true;
-  //   };
-  //   $scope.dateOptions = {
-  //     formatYear: 'yy',
-  //     startingDay: 1
-  //   };
-  //   $scope.format = 'dd-MMMM-yyyy';
-    
-  //   $scope.status = {
-  //     isopen: false
-  //   };
-  //   $scope.toggleDropdown = function($event) {
-  //     $scope.status.isopen = !$scope.status.isopen;
-  //   };
-  // }]);
- 
+  });
     
 }(angular));

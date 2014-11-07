@@ -3,8 +3,11 @@
     <h2>{{title}}</h2>
 
     
-     <div collapse="isCollapsed">
-        <alert ng-repeat="alert in alerts" type={{alert.type}} close="closeAlert($index)">{{alert.msg}}</alert>
+      <div class="alert alert-danger" role="alert" collapse="isCollapsed">
+        <strong>Error:</strong> {{errorMessage}}
+    </div>
+    <div class="alert alert-success" role="alert" collapse="successAlertIsCollapsed">
+        <strong>Success:</strong> {{successMessage}}
     </div>
 
     <div class="col-md-12">
@@ -33,6 +36,7 @@
             <button type="button" class= "btn" ng-click="removeScreen()" ng-hide="selectedScreen==null || newScreenSelected()">
                 <span class="glyphicon glyphicon-remove"></span> Remove
             </button>
+
             <!--<button type="button" disabled class="btn" ng-click="viewPreview()" ng-displed="item.isReady || item.isUploading || item.isSuccess">-->
             <!--    <span class="glyphicon glyphicon-new-window"></span> Preview-->
             <!--</button>-->
@@ -43,6 +47,7 @@
             <div name="componentPreview" class="previewContainer" ng-controller="screenMasterController">
                 <div preview="HTMLcontent"></div>
             </div>
+
         </div>
 
     </div>

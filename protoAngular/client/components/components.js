@@ -37,7 +37,9 @@ angular.module('AngularProtoypeEngine.main.project.components', ['AngularProtoyp
       $scope.jsonData = jsonData.jsonData;
       
       $scope.errorMessage = '';
-      $scope.isCollapsed=true;
+      $scope.successMessage = '';
+      $scope.isCollapsed = true;
+      $scope.successAlertIsCollapsed = true;
       $scope.title = '';
       $scope.HTMLcontent = '';
       $scope.selectedJsonData = '';
@@ -53,6 +55,7 @@ angular.module('AngularProtoypeEngine.main.project.components', ['AngularProtoyp
           $scope.HTMLcontent = '';
           $scope.selectedJsonData = '';
         }  
+        $scope.setAlerts('', true, '', true);
       });
       
       $scope.$watch('uiComponent', function() {
@@ -85,15 +88,13 @@ angular.module('AngularProtoypeEngine.main.project.components', ['AngularProtoyp
           HTMLcontent: $scope.HTMLcontent,
           data: $scope.selectedJsonData
         });
-        $scope.isCollapsed=true;
-        $scope.errorMessage = '';
+        $scope.setAlerts('', true, 'Successfully created', false);
         
       };
       
       var checkField = function(field) {
         if($scope[field] ==='') { 
-          $scope.errorMessage = 'Field ' + field + ' is missing!';
-          $scope.isCollapsed=false;
+          $scope.setAlerts('Field ' + field + ' is missing!', false, '', true);
           return false;
         }
         return true;
@@ -124,13 +125,20 @@ angular.module('AngularProtoypeEngine.main.project.components', ['AngularProtoyp
       $scope.removeComponent = function() {
          uiComponent.remove($scope.selectedComponent);
          $scope.$parent.selectedComponent=null;
+         $scope.setAlerts('', true, '', true);
       };
       
       $scope.updateComponent = function() {
+        if(!checkField('title')) return;
+        
+        if(!checkField('HTMLcontent')) return;
+
         $scope.$parent.selectedComponent.title = $scope.title;
         $scope.$parent.selectedComponent.HTMLcontent = $scope.HTMLcontent;
         $scope.$parent.selectedComponent.data = $scope.selectedJsonData;
         uiComponent.update($scope.selectedComponent);
+        
+        $scope.setAlerts('', true,  "Successfully updated " + $scope.selectedComponent.title, false);
       }; 
       
       $scope.getJsonDataModal = function() {
@@ -166,6 +174,7 @@ angular.module('AngularProtoypeEngine.main.project.components', ['AngularProtoyp
         return '';
       };
       
+
       $scope.getJsonContent = function(id) {
         for(var i = 0; i < $scope.jsonData.length; i++){
           if(id == $scope.jsonData[i]._id){
@@ -173,6 +182,22 @@ angular.module('AngularProtoypeEngine.main.project.components', ['AngularProtoyp
           }
         }
         return '';
+      };
+
+      $scope.setAlerts = function(errorMessage, errorCollapsed, successMessage, successCollapsed){
+        if(errorMessage !== null){
+          $scope.errorMessage = errorMessage;
+        }
+        if(successMessage !== null){
+          $scope.successMessage = successMessage;
+        }
+        if(errorCollapsed !== null){
+          $scope.isCollapsed = errorCollapsed;
+        }
+        if(successCollapsed !== null){
+          $scope.successAlertIsCollapsed = successCollapsed;
+        }
+
       };
 }])
 
