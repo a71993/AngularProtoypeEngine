@@ -31,7 +31,9 @@ angular.module('AngularProtoypeEngine.main.project.jsonData', [])
       $scope.$parent.projectDatas=$scope.jsonData;
       
       $scope.errorMessage = '';
-      $scope.isCollapsed=true;
+      $scope.successMessage = '';
+      $scope.isCollapsed = true;
+      $scope.successAlertIsCollapsed = true;
       $scope.title = '';
       $scope.content = '';
       
@@ -43,6 +45,7 @@ angular.module('AngularProtoypeEngine.main.project.jsonData', [])
           $scope.title='';
           $scope.content='';
         }  
+        $scope.setAlerts('', true, '', true);
       });
       
       $scope.$watch('jsonData', function() {
@@ -63,23 +66,19 @@ angular.module('AngularProtoypeEngine.main.project.jsonData', [])
           JSON.parse($scope.content);
         }catch(e){
           console.log("error: "+e);
-          $scope.errorMessage = 'Invalid json!';
-          $scope.isCollapsed=false;
+          $scope.setAlerts('Invalid json!', false, '', true);
           return;
         }
         jsonData.create({
           title: $scope.title,
           content: $scope.content
         });
-        $scope.title = '';
-        $scope.content = '';
-        $scope.isCollapsed=true;
-        $scope.errorMessage = '';
+        $scope.setAlerts('', true, 'Successfully created', false);
       };
       
       var checkField = function(field) {
         if($scope[field] ==='') { 
-          $scope.errorMessage = 'Field ' + field + ' is missing!';
+          $scope.setAlerts('Field ' + field + ' is missing!', false, '', true);
           $scope.isCollapsed=false;
           return false;
         }
@@ -107,16 +106,19 @@ angular.module('AngularProtoypeEngine.main.project.jsonData', [])
       $scope.removeJsonData = function() {
         jsonData.remove($scope.selectedData);
         $scope.$parent.selectedData=null;
+        $scope.setAlerts('', true, '', true);
       };
       
-      // $scope.removeJsonData = function(index) {
-      //   jsonData.remove(index);
-      // };
-      
       $scope.updateJsonData = function() {
+        if(!checkField('title')) return;
+        
+        if(!checkField('content')) return;
+        
         $scope.$parent.selectedData.title=$scope.title;
         $scope.$parent.selectedData.content=$scope.content;
         jsonData.update($scope.selectedData);
+        
+        $scope.setAlerts('', true,  "Successfully updated " + $scope.selectedComponent.title, false);
       }; 
       
         
@@ -135,6 +137,21 @@ angular.module('AngularProtoypeEngine.main.project.jsonData', [])
           return true;
         }else{
           return false;
+        }
+      };
+      
+      $scope.setAlerts = function(errorMessage, errorCollapsed, successMessage, successCollapsed){
+        if(errorMessage !== null){
+          $scope.errorMessage = errorMessage;
+        }
+        if(successMessage !== null){
+          $scope.successMessage = successMessage;
+        }
+        if(errorCollapsed !== null){
+          $scope.isCollapsed = errorCollapsed;
+        }
+        if(successCollapsed !== null){
+          $scope.successAlertIsCollapsed = successCollapsed;
         }
       };
       
