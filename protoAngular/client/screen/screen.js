@@ -1,4 +1,4 @@
-angular.module('AngularProtoypeEngine.main.project.screen', ['AngularProtoypeEngine.main.project.components'])
+angular.module('AngularProtoypeEngine.main.project.screen', ['AngularProtoypeEngine.main.project.components', 'ngSanitize'])
     .config(['$stateProvider',
         function ($stateProvider) {
 
@@ -35,10 +35,6 @@ angular.module('AngularProtoypeEngine.main.project.screen', ['AngularProtoypeEng
                 }
             });
 
-
-
-
-
             var components = [];
             $scope.uiScreen = uiScreen.uiScreen;
             $scope.$parent.projectScreens = $scope.uiScreen;
@@ -52,13 +48,13 @@ angular.module('AngularProtoypeEngine.main.project.screen', ['AngularProtoypeEng
 
             components = (uiScreen.getAllCom());
             
-            // console.log($scope.uiScreen);
 
             $scope.$watch('selectedScreen', function () {
                 if ($scope.selectedScreen != null && $scope.selectedScreen !== '') {
                     $scope.title = $scope.selectedScreen.title;
                     $scope.HTMLcontent = $scope.selectedScreen.HTMLcontent;
                     $scope.mainpage = $scope.selectedScreen.mainpage;
+                    bindComp();
                 } else {
                     $scope.title = '';
                     $scope.HTMLcontent = '';
@@ -71,36 +67,32 @@ angular.module('AngularProtoypeEngine.main.project.screen', ['AngularProtoypeEng
                 for (var i = $scope.uiScreen.length - 1; i >= 0; i--) {
                     if ($scope.title === $scope.uiScreen[i].title) {
                         $scope.$parent.selectedScreen = $scope.uiScreen[i];
+                        //bindComp();
                         break;
                     }
                 }
             }, true);
 
-            // console.log($scope.selectedScreen);
-            $scope.closeAlert = function (index) {
-                $scope.alerts.splice(index, 1);
-            };
-
+        
             $scope.addScreen = function () {
 
-
                 checkMainpage(); //Checking if mainpage alredy exist. 
+                //bindComp();//binding components to screen
                 if (!checkField('title')) return;
 
                 if (!checkField('HTMLcontent')) return;
-                includeComponent();
-
+        
                 var a = $scope.$parent.selectedScreen = uiScreen.create({
                     title: $scope.title,
                     HTMLcontent: $scope.HTMLcontent,
                     mainpage: $scope.mainpage,
-                    //Compo:includeComponent()
+                    Compo: bindComp()
 
                 });
                 $scope.setAlerts('', true, 'Successfully created', false);
 
             };
-         
+
             var checkField = function (field) {
                 if ($scope[field] === '') {
                     $scope.setAlerts('Field ' + field + ' is missing!', false, '', true);
@@ -112,8 +104,8 @@ angular.module('AngularProtoypeEngine.main.project.screen', ['AngularProtoypeEng
 
             function checkMainpage() {
                 for (var i = $scope.uiScreen.length - 1; i >= 0; i--) {
-                    
-                    if ($scope.uiScreen[i].mainpage === true && $scope.mainpage === true && $scope.title!==$scope.uiScreen[i].title) {
+
+                    if ($scope.uiScreen[i].mainpage === true && $scope.mainpage === true && $scope.title !== $scope.uiScreen[i].title) {
 
 
                         var x = confirm("Mainpage alredy exists.\nMake this mainpage?");
@@ -136,26 +128,29 @@ angular.module('AngularProtoypeEngine.main.project.screen', ['AngularProtoypeEng
 
             };
 
-            function includeComponent() {
-                //var matches = [];
+
+            function bindComp() {
+                var com = [];
                 var i = 0;
                 while (i < components.length) {
                     for (i; components.length > i; i++) {
-
-                        // console.log($scope.HTMLcontent);
-                        var findmatc = "<include='" + components[i].title + "'>";
-                        // console.log(findmatc);
-                        
+                        var findmatc = 'ng-bind-html=' + '"' + components[i].title + '"';
                         if (checkSubstring($scope.HTMLcontent, findmatc) == true) {
-                            //replasing include with component html content
-                            $scope.HTMLcontent = $scope.HTMLcontent.replace(findmatc, components[i].HTMLcontent);
-                            //matches.push(components[i].title);
+                            com.push(components[i].title);
+                            $scope[components[i].title] = components[i].HTMLcontent;
                         }
-
                     }
                 }
-                //return matches;
+                console.log(com);
+                return com;
+
             };
+            $scope.bind=function(){
+                bindComp();
+            };
+            $scope.bind();
+
+
             $scope.removeScreen = function () {
                 var x = confirm("Are you sure you want to delete screen?");
                 if (x === true) {
@@ -166,14 +161,16 @@ angular.module('AngularProtoypeEngine.main.project.screen', ['AngularProtoypeEng
             };
 
             $scope.updateScreen = function () {
-                if(!checkField('title')) return;
-                if(!checkField('HTMLcontent')) return;
+                if (!checkField('title')) return;
+                if (!checkField('HTMLcontent')) return;
 
                 checkMainpage();
-                includeComponent();
+                //bindComp();
                 $scope.$parent.selectedScreen.title = $scope.title;
                 $scope.$parent.selectedScreen.HTMLcontent = $scope.HTMLcontent;
                 $scope.$parent.selectedScreen.mainpage = $scope.mainpage;
+                $scope.$parent.selectedScreen.Comp = bindComp();
+                
                 uiScreen.update($scope.selectedScreen);
 
                 $scope.setAlerts('', true, "Successfully updated " + $scope.selectedScreen.title, false);
@@ -181,6 +178,7 @@ angular.module('AngularProtoypeEngine.main.project.screen', ['AngularProtoypeEng
 
             $scope.newScreenSelected = function () {
                 if ($scope.selectedScreen !== null && $scope.selectedScreen === '') {
+                    //bindComp();
                     return true;
                 } else {
                     return false;
@@ -239,56 +237,81 @@ angular.module('AngularProtoypeEngine.main.project.screen', ['AngularProtoypeEng
             return o;
 
 }])
-  .controller('screenMasterController', ['$scope',  '$filter', 'ngTableParams', function ($scope,  $filter, ngTableParams) {
-      
-    var data = [{name: 'Airi Satou', position:'Accountant', office:'Tokyo'},
-      {name: 'Angelica Ramos', position:'Chief Executive Officer (CEO)', office:'London'},
-      {name: 'Ashton Cox', position:'Junior Technical Author', office:'San Francisco'},
-      {name: 'Bradley Greer', position:'Software Engineer', office:'San Francisco'},
-      {name: 'Gavin Cortez', position:'Support Engineer', office:'London'},
-      {name: 'Hermione Butler', position:'Regional Director', office:'London'},
-      ]; 
-    
-    $scope.tableParams = new ngTableParams({        
-        page: 1,            
-        count: 10,          
-        sorting: {        
-          name: 'asc'       
-        }    
-      }, 
-      {        
-        total: data.length,       
-        getData: function($defer, params) {            
-          var orderedData = params.sorting() ? $filter('orderBy')(data, params.orderBy()) : data;            
-          $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));       
-      }    
-      
-    });
-    
-    weekStart: 0;
-    $scope.today = function() {
-      $scope.dt = new Date();
-    };
-    $scope.today();
-    $scope.clear = function () {
-      $scope.dt = null;
-    };
-    $scope.open = function($event) {
-      //$event.preventDefault();
-      $event.stopPropagation(); 
-      $scope.opened = true;
-    };
-    $scope.dateOptions = {
-      formatYear: 'yy',
-      startingDay: 1
-    };
-    $scope.format = 'dd-MMMM-yyyy';
-    
-    $scope.status = {
-      isopen: false
-    };
-    $scope.toggleDropdown = function($event) {
-      $scope.status.isopen = !$scope.status.isopen;
-    };
-  }]);
+    .controller('screenMasterController', ['$scope', '$filter', 'ngTableParams', 'uiScreen',
+        function ($scope, $filter, ngTableParams, uiScreen) {
 
+            var data = [{
+                    name: 'Airi Satou',
+                    position: 'Accountant',
+                    office: 'Tokyo'
+                },
+                {
+                    name: 'Angelica Ramos',
+                    position: 'Chief Executive Officer (CEO)',
+                    office: 'London'
+                },
+                {
+                    name: 'Ashton Cox',
+                    position: 'Junior Technical Author',
+                    office: 'San Francisco'
+                },
+                {
+                    name: 'Bradley Greer',
+                    position: 'Software Engineer',
+                    office: 'San Francisco'
+                },
+                {
+                    name: 'Gavin Cortez',
+                    position: 'Support Engineer',
+                    office: 'London'
+                },
+                {
+                    name: 'Hermione Butler',
+                    position: 'Regional Director',
+                    office: 'London'
+                },
+      ];
+
+            $scope.tableParams = new ngTableParams({
+                page: 1,
+                count: 10,
+                sorting: {
+                    name: 'asc'
+                }
+            }, {
+                total: data.length,
+                getData: function ($defer, params) {
+                    var orderedData = params.sorting() ? $filter('orderBy')(data, params.orderBy()) : data;
+                    $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                }
+
+            });
+            weekStart: 0;
+            $scope.today = function () {
+                $scope.dt = new Date();
+            };
+            $scope.today();
+            $scope.clear = function () {
+                $scope.dt = null;
+            };
+
+            $scope.open = function ($event) {
+                //$event.preventDefault();
+                $event.stopPropagation();
+                $scope.opened = true;
+            };
+            $scope.dateOptions = {
+                formatYear: 'yy',
+                startingDay: 1
+            };
+            $scope.format = 'dd-MMMM-yyyy';
+
+            $scope.status = {
+                isopen: false
+            };
+            $scope.toggleDropdown = function ($event) {
+                $scope.status.isopen = !$scope.status.isopen;
+            };
+
+
+  }]);
