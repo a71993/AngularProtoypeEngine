@@ -1,26 +1,15 @@
 <div ng-controller="uigComponentsController">
-
-	<div>
+	<div>   
         
-    <h2 name="uigComponentTitle" ng-model="title">{{title}}</h2>
-	
+    <h2 name="uigComponentTitle" ng-model="title">{{title}}</h2>	
 	<label for="uigComponentHtml">Code example</label>
-	<pre name="uigComponentHtml">{{HTMLcontent}}</pre>
+	<pre name="uigComponentHtml">{{HTMLcontent}}</pre>     
         
-    <!--<pre name="uigComponentcontroller">{{controller}}</pre>    -->
-    
        <div class="form-group">
             <label for="componentPreview">Preview</label></br>
             <div name="componentPreview" class="previewContainer" ng-controller="uigMasterController">
                 <div preview="HTMLcontent"></div>
             </div>
         </div>
-    
-	</div>
-
-	<p class="suur"></p>
-    
-        <element class="nahtavale"></element>
-	
-
+   	</div>
 </div>

@@ -26,8 +26,7 @@ angular.module('AngularProtoypeEngine.main.uig.components', ['ui.router', 'ngTab
       $scope.HTMLcontent = '';
       $scope.uigHTML = '';
       $scope.controller = '';
-     
-   
+        
     
      $scope.$watch('selectedUigComponent', function() {  
         if($scope.selectedUigComponent!=null){ 
@@ -39,7 +38,6 @@ angular.module('AngularProtoypeEngine.main.uig.components', ['ui.router', 'ngTab
                   $scope.uigHTML = $scope.asendus;
                   $scope.controller = $scope.uigComponent[i].controller;
            }; 
-     
         };
         };
       });     
