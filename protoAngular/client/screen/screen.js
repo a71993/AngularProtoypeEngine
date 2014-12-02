@@ -19,10 +19,12 @@ angular.module('AngularProtoypeEngine.main.project.screen', ['AngularProtoypeEng
                     },
 
                     controller: 'ScreenController'
-                });
+                })
+            
+        
 }])
-    .controller('ScreenController', ['$scope', '$http', '$modal', 'FileUploader', 'uiScreen', 'uiComponent',
-        function ($scope, $modal, $http, FileUploader, uiScreen, uiComponent) {
+    .controller('ScreenController', ['$scope', '$http', '$modal', 'FileUploader', 'uiScreen', 'uiComponent', '$state',
+        function ($scope, $modal, $http, FileUploader, uiScreen, uiComponent, $state) {
             var uploader = $scope.uploader = new FileUploader({
                 url: '/upload'
             });
@@ -198,6 +200,11 @@ angular.module('AngularProtoypeEngine.main.project.screen', ['AngularProtoypeEng
                     $scope.successAlertIsCollapsed = successCollapsed;
                 }
             };
+  
+           
+            
+            
+            
 }])
     .factory('uiScreen', ['$http', '$filter', 'uiComponent',
         function ($http, $filter, uiComponent) {
