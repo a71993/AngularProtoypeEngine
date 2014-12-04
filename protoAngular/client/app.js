@@ -2,6 +2,7 @@
   'use strict';
   angular.module('AngularProtoypeEngine', [
     'ui.bootstrap',
+      'ngRoute',
       'ui.router',
     'angularFileUpload',
   'AngularProtoypeEngine.vaade',
