@@ -19,19 +19,6 @@ angular.module('AngularProtoypeEngine.main.project.components', ['AngularProtoyp
 }])
 .controller('componentsController', ['$scope', '$modal', 'FileUploader', 'uiComponent', 'jsonData', function ($scope, $modal, FileUploader, uiComponent, jsonData) {
 
-
-      var uploader = $scope.uploader = new FileUploader({
-        url: '/upload'
-      });
-
-      uploader.filters.push({
-          name: 'jsonFilter',
-          fn: function(item /*{File|FileLikeObject}*/, options) {
-              var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
-              return '|json|'.indexOf(type) !== -1;
-          }
-      });
-      
       $scope.uiComponent = uiComponent.uiComponent;
       $scope.$parent.projectComponents = $scope.uiComponent;
       $scope.jsonData = jsonData.jsonData;
@@ -72,9 +59,10 @@ angular.module('AngularProtoypeEngine.main.project.components', ['AngularProtoyp
           var selectedData = $scope.selectedJsonData[i];
           if(selectedData){
             console.log(selectedData.name);
+            console.log($scope.getJsonContent(selectedData.jsonId));
             $scope[selectedData.name] = $scope.getJsonContent(selectedData.jsonId);
-            console.log($scope[selectedData.name]);
           }
+          $compile($scope[selectedData.name]);
         } 
       };
 
@@ -226,6 +214,20 @@ angular.module('AngularProtoypeEngine.main.project.components', ['AngularProtoyp
   o.update = function(updatedUiComponent) {
     return $http.put('/uiComponent/'+ updatedUiComponent._id, updatedUiComponent).success(function(resp){
       console.log(resp.message);
+    });
+  };
+  
+  return o;
+}])
+
+.factory('uiComponentData', ['$http', '$filter', function($http, $filter){
+  
+  var o = {
+    uiComponentData: []
+  };
+  o.getAll = function() {
+    return $http.get('/uiComponent').success(function(data){
+      angular.copy(data, o.uiComponent);
     });
   };
   
