@@ -23,8 +23,11 @@ angular.module('AngularProtoypeEngine.main.project.screen', ['AngularProtoypeEng
                     },
 
                     controller: 'ScreenController'
-                });
+                })
+            
+        
 }])
+
     .controller('ScreenController', ['$scope', '$http', '$modal', 'FileUploader', 'uiScreen', 'uiComponent', 'jsonData',
         function ($scope, $modal, $http, FileUploader, uiScreen, uiComponent, jsonData) {
 
@@ -202,6 +205,7 @@ angular.module('AngularProtoypeEngine.main.project.screen', ['AngularProtoypeEng
                     $scope.successAlertIsCollapsed = successCollapsed;
                 }
             };
+
             
 }])
     .factory('uiScreen', ['$http', '$filter', 'uiComponent',

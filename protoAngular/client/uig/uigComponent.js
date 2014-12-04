@@ -52,7 +52,7 @@ angular.module('AngularProtoypeEngine.main.uig.components', ['ui.router', 'ngTab
   o.getAll = function() {
     return $http.get('/uigComponent').success(function(data){
       angular.copy(data, o.uigComponent);
-         console.log(data);
+       //  console.log(data);
         
     });
   };
