@@ -14,6 +14,10 @@ angular.module('AngularProtoypeEngine.main.project.screen', ['AngularProtoypeEng
                         uiComponentPromise: ['uiComponent',
                             function (uiComponent) {
                                 return uiComponent.getAll();
+                        }],
+                        uiComponentJsonDataPromise: ['jsonData', 
+                            function(jsonData){
+                                return jsonData.getAll();
                         }]
 
                     },
@@ -23,19 +27,9 @@ angular.module('AngularProtoypeEngine.main.project.screen', ['AngularProtoypeEng
             
         
 }])
-    .controller('ScreenController', ['$scope', '$http', '$modal', 'FileUploader', 'uiScreen', 'uiComponent', '$state',
-        function ($scope, $modal, $http, FileUploader, uiScreen, uiComponent, $state) {
-            var uploader = $scope.uploader = new FileUploader({
-                url: '/upload'
-            });
 
-            uploader.filters.push({
-                name: 'jsonFilter',
-                fn: function (item /*{File|FileLikeObject}*/ , options) {
-                    var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
-                    return '|json|'.indexOf(type) !== -1;
-                }
-            });
+    .controller('ScreenController', ['$scope', '$http', '$modal', 'FileUploader', 'uiScreen', 'uiComponent', 'jsonData',
+        function ($scope, $modal, $http, FileUploader, uiScreen, uiComponent, jsonData) {
 
             var components = [];
             $scope.uiScreen = uiScreen.uiScreen;
@@ -48,7 +42,11 @@ angular.module('AngularProtoypeEngine.main.project.screen', ['AngularProtoypeEng
             $scope.HTMLcontent = '';
             $scope.mainpage = false;
 
-            components = (uiScreen.getAllCom());  
+
+            components = (uiScreen.getAllCom());
+            
+            $scope.jsonData = jsonData.jsonData;
+            
 
             $scope.$watch('selectedScreen', function () {
                 if ($scope.selectedScreen != null && $scope.selectedScreen !== '') {
@@ -135,9 +133,10 @@ angular.module('AngularProtoypeEngine.main.project.screen', ['AngularProtoypeEng
                 var i = 0;
                 while (i < components.length) {
                     for (i; components.length > i; i++) {
-                        var findmatc = 'ng-bind-html=' + '"' + components[i].title + '"';
+                        var findmatc = 'preview=' + '"' + components[i].title + '"';
                         if (checkSubstring($scope.HTMLcontent, findmatc) == true) {
                             com.push(components[i].title);
+                            $scope[components[i].data[0].name] = $scope.getJsonContent(components[i].data[0].jsonId);
                             $scope[components[i].title] = components[i].HTMLcontent;
                         }
                     }
@@ -151,6 +150,14 @@ angular.module('AngularProtoypeEngine.main.project.screen', ['AngularProtoypeEng
             };
             $scope.bind();
 
+            $scope.getJsonContent = function(id) {
+              for(var i = 0; i < $scope.jsonData.length; i++){
+                if(id == $scope.jsonData[i]._id){
+                  return angular.fromJson($scope.jsonData[i].content);
+                }
+              }
+              return '';
+            };
 
             $scope.removeScreen = function () {
                 var x = confirm("Are you sure you want to delete screen?");
@@ -201,10 +208,7 @@ angular.module('AngularProtoypeEngine.main.project.screen', ['AngularProtoypeEng
                     $scope.successAlertIsCollapsed = successCollapsed;
                 }
             };
-  
-           
-            
-            
+
             
 }])
     .factory('uiScreen', ['$http', '$filter', 'uiComponent',
