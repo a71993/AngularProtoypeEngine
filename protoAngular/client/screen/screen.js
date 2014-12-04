@@ -72,17 +72,17 @@ angular.module('AngularProtoypeEngine.main.project.screen', ['AngularProtoypeEng
                     }
                 }
             }, true);
-
+            
         
             $scope.addScreen = function () {
 
                 checkMainpage(); //Checking if mainpage alredy exist. 
-                //bindComp();//binding components to screen
+                
                 if (!checkField('title')) return;
 
                 if (!checkField('HTMLcontent')) return;
         
-                var a = $scope.$parent.selectedScreen = uiScreen.create({
+                uiScreen.create({
                     title: $scope.title,
                     HTMLcontent: $scope.HTMLcontent,
                     mainpage: $scope.mainpage,
@@ -141,7 +141,7 @@ angular.module('AngularProtoypeEngine.main.project.screen', ['AngularProtoypeEng
                         }
                     }
                 }
-                console.log(com);
+               
                 return com;
 
             };
@@ -178,12 +178,14 @@ angular.module('AngularProtoypeEngine.main.project.screen', ['AngularProtoypeEng
 
             $scope.newScreenSelected = function () {
                 if ($scope.selectedScreen !== null && $scope.selectedScreen === '') {
-                    //bindComp();
+                    
                     return true;
                 } else {
                     return false;
                 }
             }
+            
+          
             $scope.setAlerts = function (errorMessage, errorCollapsed, successMessage, successCollapsed) {
                 if (errorMessage !== null) {
                     $scope.errorMessage = errorMessage;

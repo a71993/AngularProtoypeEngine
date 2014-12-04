@@ -55,4 +55,5 @@ table[class="table1"] tr:nth-child(even) {
     float: left;
     border: 1px solid #ddd;
     border-radius: 4px;
+    width: 100%
 }
