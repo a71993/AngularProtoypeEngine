@@ -173,7 +173,7 @@ angular.module('AngularProtoypeEngine.main.project.screen', ['AngularProtoypeEng
                 if (!checkField('HTMLcontent')) return;
 
                 checkMainpage();
-                //bindComp();
+                
                 $scope.$parent.selectedScreen.title = $scope.title;
                 $scope.$parent.selectedScreen.HTMLcontent = $scope.HTMLcontent;
                 $scope.$parent.selectedScreen.mainpage = $scope.mainpage;
