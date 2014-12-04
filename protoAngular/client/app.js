@@ -1,12 +1,16 @@
 (function (angular) {
   'use strict';
   angular.module('AngularProtoypeEngine', [
-    'ui.router',
     'ui.bootstrap',
+      'ui.router',
     'angularFileUpload',
-  'AngularProtoypeEngine.main'])
+  'AngularProtoypeEngine.vaade',
+  'AngularProtoypeEngine.main', 
+  'AngularProtoypeEngine.main.project.screen'])
   .config(function ($stateProvider, $urlRouterProvider) {
-    $urlRouterProvider.otherwise('/AngularProtoypeEngine/main/notes');
+    $urlRouterProvider
+    .when('/AngularProtoypeEngine/t', '/AngularProtoypeEngine/main/vaade')
+    .otherwise('/AngularProtoypeEngine/main/notes');
 
     $stateProvider
       .state('AngularProtoypeEngine', {
