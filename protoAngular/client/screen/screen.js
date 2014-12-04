@@ -19,7 +19,7 @@ angular.module('AngularProtoypeEngine.main.project.screen', ['AngularProtoypeEng
                     },
 
                     controller: 'ScreenController'
-                })
+                });
             
         
 }])
@@ -48,15 +48,14 @@ angular.module('AngularProtoypeEngine.main.project.screen', ['AngularProtoypeEng
             $scope.HTMLcontent = '';
             $scope.mainpage = false;
 
-            components = (uiScreen.getAllCom());
-            
+            components = (uiScreen.getAllCom());  
 
             $scope.$watch('selectedScreen', function () {
                 if ($scope.selectedScreen != null && $scope.selectedScreen !== '') {
                     $scope.title = $scope.selectedScreen.title;
                     $scope.HTMLcontent = $scope.selectedScreen.HTMLcontent;
                     $scope.mainpage = $scope.selectedScreen.mainpage;
-                    bindComp();
+                    //bindComp();
                 } else {
                     $scope.title = '';
                     $scope.HTMLcontent = '';
@@ -113,7 +112,7 @@ angular.module('AngularProtoypeEngine.main.project.screen', ['AngularProtoypeEng
                         var x = confirm("Mainpage alredy exists.\nMake this mainpage?");
                         if (x === true) {
                             $scope.uiScreen[i].mainpage = false;
-                            //var s=$scope.uiScreen[i].Compo;
+                            
                             uiScreen.update($scope.uiScreen[i]);
                         } else {
                             $scope.mainpage = false;

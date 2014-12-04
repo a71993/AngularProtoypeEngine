@@ -11,12 +11,10 @@ angular.module('AngularProtoypeEngine.vaade', ['ui.router', 'AngularProtoypeEngi
      controller: 'ScreenViewController'
     });
 })
-.controller('ScreenViewController', ['$scope', 'uiScreen',
-        function ($scope, uiScreen) {
-                       
-            $scope.title = "mmmmmmmmmmmmiks";
-            
-            $scope.HTMLcontent ='<div class="btn-group">\n\t<label class="btn btn-primary" ng-model="radioModel" btn-radio="\'Left\'">\n\t\tLeft\n\t</label> \n\t<label class="btn btn-primary" ng-model="radioModel" btn-radio="\'Middle\'">\n\t\tMiddle\n\t</label> \n\t<label class="btn btn-primary" ng-model="radioModel" btn-radio="\'Right\'">\n\t\tRight\n\t</label>\n</div>';
+.controller('ScreenViewController', ['$scope', 'uiScreen','$sce',
+        function ($scope, uiScreen,$sce) {
+            $scope.title = "M";          
+            $scope.HTMLcontent = $sce.trustAsHtml('<div class="btn-group">\n\t<label class="btn btn-primary" ng-model="radioModel" btn-radio="\'Left\'">\n\t\tLeft\n\t</label> \n\t<label class="btn btn-primary" ng-model="radioModel" btn-radio="\'Middle\'">\n\t\tMiddle\n\t</label> \n\t<label class="btn btn-primary" ng-model="radioModel" btn-radio="\'Right\'">\n\t\tRight\n\t</label>\n</div>');
 
             
 
@@ -28,6 +26,10 @@ angular.module('AngularProtoypeEngine.vaade', ['ui.router', 'AngularProtoypeEngi
         restrict:'E',
         transclude: true,
         scope: { title:'@' },
-        template: '<h1> {{title}} </h1>' + '<ng-transclude></ng-transclude>'
+        template: '<div style="border: 1px solid black;">' +
+                    '<div> {{HTMLcontent}} </div>' +
+                    '<div style="background-color: gray">{{title}}</div>' +
+                    '<ng-transclude></ng-transclude>' +
+                  '</div>'
      }
     })
