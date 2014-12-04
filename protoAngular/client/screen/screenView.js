@@ -31,13 +31,3 @@ angular.module('AngularProtoypeEngine.vaade', ['ui.router', 'AngularProtoypeEngi
         template: '<h1> {{title}} </h1>' + '<ng-transclude></ng-transclude>'
      }
     })
-/*
-.directive('screenBody', function() {
-     return {
-        restrict:'E',
-        transclude: true,
-        scope: { HTMLcontent:'@' },
-        template: '<div style="background-color: blue> {{HTMLcontent}} </div>' + '<ng-transclude></ng-transclude>'
-     }
-    })*/;
- //   <screen-body HTMLcontent={{HTMLcontent}}></screen-body>
