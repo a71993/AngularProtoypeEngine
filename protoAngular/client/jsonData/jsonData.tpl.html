@@ -30,9 +30,11 @@
         <button type="button" ng-click="removeJsonData()" ng-hide="selectedData==null || newJsonDataSelected()">
             <span class="glyphicon glyphicon-remove"></span> Remove
         </button>
-        <button type="button" ng-click="downloadJsonData()" ng-hide="selectedData==null || newJsonDataSelected()">
+        <!--<a ng-href="{{downloadUrl}}" download="{{title}}.json" style="color: #000;text-decoration:none;">-->
+        <button type="button"  ng-click="downloadJsonData()" ng-hide="selectedData==null || newJsonDataSelected()">
             <span class="glyphicon glyphicon-download"></span> Download
         </button>
+        <!--</a>-->
         <button type="button" ng-click="addJsonData()" ng-show="newJsonDataSelected()">
             <span class="glyphicon glyphicon-upload"></span> Save
         </button>

@@ -17,7 +17,7 @@ angular.module('AngularProtoypeEngine.main.project.components', ['AngularProtoyp
       controller: 'componentsController'
     });
 }])
-.controller('componentsController', ['$scope', '$modal', 'FileUploader', 'uiComponent', 'jsonData', function ($scope, $modal, FileUploader, uiComponent, jsonData) {
+.controller('componentsController', ['$scope', '$modal', 'FileUploader', 'uiComponent', 'jsonData', function ($scope, $modal, FileUploader, uiComponent, jsonData, uiComponentData) {
 
       $scope.uiComponent = uiComponent.uiComponent;
       $scope.$parent.projectComponents = $scope.uiComponent;
@@ -36,6 +36,7 @@ angular.module('AngularProtoypeEngine.main.project.components', ['AngularProtoyp
           $scope.title = $scope.selectedComponent.title;
           $scope.HTMLcontent = $scope.selectedComponent.HTMLcontent;
           $scope.selectedJsonData = $scope.selectedComponent.data;
+          $scope.blob = new Blob([ $scope.HTMLcontent ], { type : 'application/octet-stream' });
           updateDataNames();
         }else{
           $scope.title = '';
@@ -54,15 +55,16 @@ angular.module('AngularProtoypeEngine.main.project.components', ['AngularProtoyp
         }
       }, true);
       
+      $scope.downloadComponentHTML = function() {
+        saveAs($scope.blob, $scope.title+'.html');
+      };
+      
       var updateDataNames = function(){
         for(var i = 0; i < $scope.selectedJsonData.length; i++){
           var selectedData = $scope.selectedJsonData[i];
           if(selectedData){
-            console.log(selectedData.name);
-            console.log($scope.getJsonContent(selectedData.jsonId));
             $scope[selectedData.name] = $scope.getJsonContent(selectedData.jsonId);
           }
-          $compile($scope[selectedData.name]);
         } 
       };
 
@@ -224,11 +226,6 @@ angular.module('AngularProtoypeEngine.main.project.components', ['AngularProtoyp
   
   var o = {
     uiComponentData: []
-  };
-  o.getAll = function() {
-    return $http.get('/uiComponent').success(function(data){
-      angular.copy(data, o.uiComponent);
-    });
   };
   
   return o;

@@ -53,7 +53,7 @@ angular.module('AngularProtoypeEngine.main.project.screen', ['AngularProtoypeEng
                     $scope.title = $scope.selectedScreen.title;
                     $scope.HTMLcontent = $scope.selectedScreen.HTMLcontent;
                     $scope.mainpage = $scope.selectedScreen.mainpage;
-                    //bindComp();
+                    bindComp();
                 } else {
                     $scope.title = '';
                     $scope.HTMLcontent = '';
@@ -72,6 +72,20 @@ angular.module('AngularProtoypeEngine.main.project.screen', ['AngularProtoypeEng
                 }
             }, true);
             
+            $scope.downloadScreenHTML = function() {
+                var wholeHTML;
+                 for (var i = 0; components.length > i; i++) {
+                     var findmatc = 'preview=' + '"' + components[i].title + '"';
+                    if (checkSubstring($scope.HTMLcontent, findmatc) === true) {
+                        var beforePreview = $scope.HTMLcontent.substring(0, $scope.HTMLcontent.indexOf(findmatc));
+                        var afterPreview = $scope.HTMLcontent.substring($scope.HTMLcontent.indexOf(findmatc)+findmatc.length);
+                        afterPreview = afterPreview.replace(">", ">" + components[i].HTMLcontent);
+                        wholeHTML = beforePreview + afterPreview;
+                    }    
+                 }
+                 var blob = new Blob([ wholeHTML ], { type : 'application/octet-stream' });
+                 saveAs(blob, $scope.title+'.html');
+            };
         
             $scope.addScreen = function () {
 
@@ -145,10 +159,6 @@ angular.module('AngularProtoypeEngine.main.project.screen', ['AngularProtoypeEng
                 return com;
 
             };
-            $scope.bind=function(){
-                bindComp();
-            };
-            $scope.bind();
 
             $scope.getJsonContent = function(id) {
               for(var i = 0; i < $scope.jsonData.length; i++){
@@ -317,7 +327,7 @@ angular.module('AngularProtoypeEngine.main.project.screen', ['AngularProtoypeEng
                 startingDay: 1
             };
             $scope.format = 'dd-MMMM-yyyy';
-
+2
             $scope.status = {
                 isopen: false
             };

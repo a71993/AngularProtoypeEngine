@@ -15,17 +15,6 @@ angular.module('AngularProtoypeEngine.main.project.jsonData', [])
     });
 }])
 .controller('jsonDataController', ['$scope', '$modal', '$window','FileUploader', 'jsonData', function ($scope, $modal, $window, FileUploader, jsonData) {
-      var uploader = $scope.uploader = new FileUploader({
-        url: '/upload'
-      });
-
-      uploader.filters.push({
-          name: 'jsonFilter',
-          fn: function(item /*{File|FileLikeObject}*/, options) {
-              var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
-              return '|json|'.indexOf(type) !== -1;
-          }
-      });
       
       $scope.jsonData = jsonData.jsonData;
       $scope.$parent.projectDatas=$scope.jsonData;
@@ -41,12 +30,18 @@ angular.module('AngularProtoypeEngine.main.project.jsonData', [])
         if($scope.selectedData!=null && $scope.selectedData!==''){
           $scope.title=$scope.selectedData.title;
           $scope.content=$scope.selectedData.content;
+          $scope.blob = new Blob([ $scope.content ], { type : 'application/octet-stream' });
+          // $scope.downloadUrl = (window.URL || window.webkitURL).createObjectURL( $scope.blob );
         }else{
           $scope.title='';
           $scope.content='';
         }  
         $scope.setAlerts('', true, '', true);
       });
+      
+      $scope.downloadJsonData = function() {
+        saveAs($scope.blob, $scope.title+'.json');
+      };
       
       $scope.$watch('jsonData', function() {
           for(var i = $scope.jsonData.length-1; i >= 0; i--){
@@ -120,17 +115,6 @@ angular.module('AngularProtoypeEngine.main.project.jsonData', [])
         
         $scope.setAlerts('', true,  "Successfully updated " + $scope.selectedComponent.title, false);
       }; 
-      
-        
-      // $scope.updateJsonData = function(jsonData, readOnly) {
-      //   $scope.show(jsonData, readOnly);
-      // }; 
-      
-      $scope.downloadJsonData = function(){
-        var blob = new Blob([ $scope.content ], { type : 'application/json' });
-        $scope.downloadUrl = (window.URL || window.webkitURL).createObjectURL( blob );
-        $window.location.href = $scope.downloadUrl;
-      };
             
       $scope.newJsonDataSelected = function() {
         if($scope.selectedData !== null && $scope.selectedData === ''){

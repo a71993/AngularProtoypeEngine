@@ -9,6 +9,8 @@
     "angular-file-upload": "*",
     "angular-bootstrap": "*",
     "ng-table": "~0.3.3",
-    "angular-route": "~1.3.0"
+    "angular-route": "~1.3.0",
+    "FileSaver": "*",
+    "jszip": "Stuk/jszip#~2.4.0"
   }
 }
