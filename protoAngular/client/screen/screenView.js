@@ -13,16 +13,29 @@ angular.module('AngularProtoypeEngine.vaade', ['ui.router', 'AngularProtoypeEngi
              uiscreenPromise: ['uiScreen',
                     function (uiScreen) {
                     return uiScreen.getAll();
-                    }]}
+                    }],
+            uiComponentPromise: ['uiComponent',
+                        function (uiComponent) {
+                            return uiComponent.getAll();
+                    }],
+            uiComponentJsonDataPromise: ['jsonData', 
+                        function(jsonData){
+                            return jsonData.getAll();
+                    }]
+      },        
+
     });
 })
-.controller('ScreenViewController', ['$scope', 'uiScreen','$sce','screenView', '$stateParams',
-        function ($scope, uiScreen, $sce, screenView, $stateParams) {
+.controller('ScreenViewController', ['$scope', 'uiScreen','$sce','screenView', '$stateParams', 'uiComponent', 'jsonData',
+        function ($scope, uiScreen, $sce, screenView, $stateParams, uiComponent, jsonData) {
             
             $scope.content = '';
             $scope.screenView = screenView.screenView;
             $scope.screens = (screenView.getAllScreens());
             $scope.name = $stateParams.name;
+            
+            var components = uiComponent.uiComponent;
+            var jsons = jsonData.jsonData;
            
             
             $scope.$watch('$scope.name', function () {
@@ -30,6 +43,9 @@ angular.module('AngularProtoypeEngine.vaade', ['ui.router', 'AngularProtoypeEngi
                     if ($scope.name === $scope.screens[i].title) {
                         $scope.content = $scope.screens[i].HTMLcontent;
                         $scope.Htmlcontent = $scope.content;
+                        bindComp();
+                        console.log(components);
+                        console.log(jsons);
                         break;
                     }
                     else { $scope.content = "<h3> URL does not exist. </br> Try adding /main or a screen name<h3>";}
@@ -42,7 +58,36 @@ angular.module('AngularProtoypeEngine.vaade', ['ui.router', 'AngularProtoypeEngi
          
            
            console.log($scope.name);
-            $scope.title = "M";          
+            $scope.title = "M";    
+            
+            function checkSubstring(string, substring) {
+                if (string.search(substring) > -1) {
+                    return true;
+                }
+
+            }
+
+
+            function bindComp() {
+                for (var i = 0; components.length > i; i++) {
+                    var findmatc = 'preview=' + '"' + components[i].title + '"';
+                    if (checkSubstring($scope.Htmlcontent, findmatc) === true) {
+                        $scope[components[i].data[0].name] = $scope.getJsonContent(components[i].data[0].jsonId);
+                        $scope[components[i].title] = components[i].HTMLcontent;
+                        console.log($scope[components[i].data[0].name]);
+                        console.log($scope[components[i].title]);
+                    }
+                }
+            }
+            
+            $scope.getJsonContent = function(id) {
+              for(var i = 0; i < jsons.length; i++){
+                if(id == jsons[i]._id){
+                  return angular.fromJson(jsons[i].content);
+                }
+              }
+              return '';
+            };
             
 
         }])

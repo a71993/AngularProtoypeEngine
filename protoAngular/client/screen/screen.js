@@ -73,12 +73,12 @@ angular.module('AngularProtoypeEngine.main.project.screen', ['AngularProtoypeEng
             }, true);
             
             $scope.downloadScreenHTML = function() {
-                var wholeHTML;
+                var wholeHTML = $scope.HTMLcontent;
                  for (var i = 0; components.length > i; i++) {
-                     var findmatc = 'preview=' + '"' + components[i].title + '"';
-                    if (checkSubstring($scope.HTMLcontent, findmatc) === true) {
-                        var beforePreview = $scope.HTMLcontent.substring(0, $scope.HTMLcontent.indexOf(findmatc));
-                        var afterPreview = $scope.HTMLcontent.substring($scope.HTMLcontent.indexOf(findmatc)+findmatc.length);
+                    var findmatc = 'preview=' + '"' + components[i].title + '"';
+                    if (checkSubstring(wholeHTML, findmatc) === true) {
+                        var beforePreview = wholeHTML.substring(0, wholeHTML.indexOf(findmatc));
+                        var afterPreview = wholeHTML.substring(wholeHTML.indexOf(findmatc)+findmatc.length);
                         afterPreview = afterPreview.replace(">", ">" + components[i].HTMLcontent);
                         wholeHTML = beforePreview + afterPreview;
                     }    
