@@ -23,7 +23,7 @@ angular.module('AngularProtoypeEngine.main.project', ['AngularProtoypeEngine.mai
     
   })
   .controller('ProjectController', function ($scope, $state, wholeScreens, jsonData) {
-    $scope.oneAtATime = true;
+    $scope.oneAtATime = false;
 
     $scope.projectName = "Project1";
     $scope.projectDatas = [];
@@ -72,6 +72,15 @@ angular.module('AngularProtoypeEngine.main.project', ['AngularProtoypeEngine.mai
       }
       var content = zip.generate({type:"blob"});
       saveAs(content, $scope.projectName +"JSONs.zip");
+    };
+    
+    $scope.getMainScreenUrl = function() {
+      for(var i = 0; i < projectScreens.length; i++){
+        if(projectScreens[i].mainpage === true){
+          return "/#/AngularProtoypeEngine/"+projectScreens[i].name;
+        }
+      }
+      return "";
     };
 
     $scope.template='project/projectInfo.tpl.html';

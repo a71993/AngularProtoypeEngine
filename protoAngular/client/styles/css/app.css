@@ -3,10 +3,12 @@
   
 .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
 
+
+
 .korvalMenuu{
     position: absolute;
     left: 0px;
-    width: 15%;
+    width: 20%;
     text-align: center;
     
 }

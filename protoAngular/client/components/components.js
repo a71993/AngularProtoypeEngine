@@ -127,7 +127,7 @@ angular.module('AngularProtoypeEngine.main.project.components', ['AngularProtoyp
         $scope.$parent.selectedComponent.HTMLcontent = $scope.HTMLcontent;
         $scope.$parent.selectedComponent.data = $scope.selectedJsonData;
         uiComponent.update($scope.selectedComponent);
-        
+          
         $scope.setAlerts('', true,  "Successfully updated " + $scope.selectedComponent.title, false);
       }; 
       

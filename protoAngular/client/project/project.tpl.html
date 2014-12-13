@@ -7,7 +7,7 @@
                     {{data.title}}
                 </button>
             </div>
-            <button class="btn btn-default btn-accordion" ng-click="setData('')" ui-sref='AngularProtoypeEngine.main.project.jsonData'>New data</button>
+            <button class="btn btn-default buttonNew btn-accordion" ng-click="setData('')" ui-sref='AngularProtoypeEngine.main.project.jsonData'>New data</button>
         </accordion-group>
         <accordion-group heading="Components" ui-sref='AngularProtoypeEngine.main.project.components' ng-click="setData(null); setScreen(null)">
             <div ng-repeat="component in projectComponents">
@@ -15,7 +15,7 @@
                     {{component.title}}
                 </button>
             </div>
-            <button class="btn btn-default btn-accordion" ng-click="setComponent('')" ui-sref='AngularProtoypeEngine.main.project.components'>New component</button>
+            <button class="btn btn-default buttonNew btn-accordion" ng-click="setComponent('')" ui-sref='AngularProtoypeEngine.main.project.components'>New component</button>
         </accordion-group>
         <accordion-group heading="Screens" ui-sref='AngularProtoypeEngine.main.project.screen' ng-click="setData(null); setComponent(null)">
             <div ng-repeat="screen in projectScreens">
@@ -23,12 +23,13 @@
                     {{screen.title}}
                 </button>
             </div>
-            <button class="btn btn-default btn-accordion" ng-click="setScreen('')" ui-sref='AngularProtoypeEngine.main.project.screen'>New screen</button>
+            <button class="btn btn-default buttonNew btn-accordion" ng-click="setScreen('')" ui-sref='AngularProtoypeEngine.main.project.screen'>New screen</button>
         </accordion-group>
     </accordion>
 
     <div class="projectModule">
         <h1>{{projectName}}</h1>
+        
         <button type="button" class="btn" ng-click="downloadHTMLs()">
             <span class="glyphicon glyphicon-download"></span> Download All Screens
         </button>
@@ -36,6 +37,8 @@
         <button type="button" class="btn" ng-click="downloadJsons()">
             <span class="glyphicon glyphicon-download"></span> Download All JSON's
         </button>
+        
+        <a href=""></a> 
         
         <div ui-view class="projectModuleContainer" ng-hide="selectedData==null && selectedComponent==null && selectedScreen==null"></div>
 

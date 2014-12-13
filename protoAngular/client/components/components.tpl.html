@@ -13,11 +13,7 @@
             <label for="componentTitle">Title</label>
             <input type="text" name="componentTitle" class="form-control" ng-model="title">
         </div>
-
-         <div class="form-group">
-             <label for="componentHtml">Component html</label>
-            <textarea name="componentHtml" class="form-control" ng-model="HTMLcontent"></textarea>
-        </div><br>
+        
         <h2>Component data</h2>
         <table class="table1">
             <tr>
@@ -29,9 +25,17 @@
                 <td class="tableTd">{{data.name}}</td>
             </tr>
         </table><br>
+        
         <button type="button" class="btn" ng-click="getJsonDataModal()">
             <span class="glyphicon"></span> Edit data
-        </button><br><br><br>
+        </button><br>
+
+         <div class="form-group">
+             <label for="componentHtml">Component html</label>
+            <textarea name="componentHtml" class="form-control" ng-model="HTMLcontent"></textarea>
+        </div><br>
+        
+        <br><br>
         <button type="button" class="btn" ng-click="addComponent()" ng-disabled="item.isReady || item.isUploading || item.isSuccess" ng-show="newComponentSelected()">
               <span class="glyphicon"></span> Save
         </button>
